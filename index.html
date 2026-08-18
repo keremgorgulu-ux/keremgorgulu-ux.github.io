@@ -669,118 +669,29 @@
     <div class="section-head">
       <span class="eyebrow">Search Homes</span>
       <h2>Find your next North Texas home.</h2>
-      <p>Search and filter homes across Frisco, Allen, Murphy, Dallas, Wylie, and Plano. Sample inventory shown below — ask Kerem for his current live MLS listings.</p>
+      <p>Search current homes across North Texas with Kerem's live MLS search. Browse current North Texas listings through Kerem's broker-provided live MLS search.</p>
     </div>
 
     <div class="search-bar reveal">
       <div class="search-input-wrap">
-        <button type="button" class="search-icon" id="searchIconBtn" aria-label="Search">🔍</button>
-        <input type="text" id="filterKeyword" placeholder="Search by city, neighborhood, or zip (e.g. Allen, Deerfield)">
+        <button type="button" class="search-icon" id="searchIconBtn" aria-label="Open live MLS search">🔍</button>
+        <input type="text" id="filterKeyword" placeholder="City, ZIP, neighborhood, or address">
       </div>
-      <div class="status-toggle" id="statusToggle">
-        <button class="status-btn" data-val="all">All</button>
-        <button class="status-btn active" data-val="sale">For Sale</button>
-        <button class="status-btn" data-val="rent">For Rent</button>
-      </div>
+      <button type="button" class="btn btn-primary" onclick="openLiveMLS()">Search Live MLS →</button>
     </div>
 
-    <div class="filter-panel reveal">
-      <div class="filter-group">
-        <label>Price Range</label>
-        <div class="filter-range">
-          <input type="number" id="priceMin" placeholder="No Min" min="0" step="1000">
-          <span>–</span>
-          <input type="number" id="priceMax" placeholder="No Max" min="0" step="1000">
-        </div>
+    <div class="live-search-cta reveal" style="margin-top:0;">
+      <div class="live-search-text">
+        <b>Live North Texas MLS listings</b>
+        <span>Search current broker-provided REB365 IDX listings with detailed filters, map search, pricing, bedrooms, bathrooms, and property types.</span>
       </div>
-      <div class="filter-group">
-        <label>Beds</label>
-        <div class="pill-group" id="bedsGroup">
-          <button class="pill active" data-val="0">Any</button>
-          <button class="pill" data-val="1">1+</button>
-          <button class="pill" data-val="2">2+</button>
-          <button class="pill" data-val="3">3+</button>
-          <button class="pill" data-val="4">4+</button>
-          <button class="pill" data-val="5">5+</button>
-        </div>
-      </div>
-      <div class="filter-group">
-        <label>Baths</label>
-        <div class="pill-group" id="bathsGroup">
-          <button class="pill active" data-val="0">Any</button>
-          <button class="pill" data-val="1">1+</button>
-          <button class="pill" data-val="2">2+</button>
-          <button class="pill" data-val="3">3+</button>
-          <button class="pill" data-val="4">4+</button>
-        </div>
-      </div>
-      <div class="filter-group wide">
-        <label>Home Type</label>
-        <div class="check-group" id="typeGroup">
-          <label class="check-pill"><input type="checkbox" value="Single Family" checked> Single Family</label>
-          <label class="check-pill"><input type="checkbox" value="Townhouse" checked> Townhouse</label>
-          <label class="check-pill"><input type="checkbox" value="Condo" checked> Condo</label>
-          <label class="check-pill"><input type="checkbox" value="Land" checked> Land / Lot</label>
-        </div>
-      </div>
-      <div class="filter-group">
-        <label>City</label>
-        <select id="neighborhoodFilter">
-          <option value="all">All Areas</option>
-          <option>Allen</option>
-          <option>Dallas</option>
-          <option>Frisco</option>
-          <option>Murphy</option>
-          <option>Plano</option>
-          <option>Wylie</option>
-        </select>
-      </div>
-      <div class="filter-group">
-        <label>Min Sqft</label>
-        <input type="number" id="sqftMin" placeholder="Any" min="0" step="100">
-      </div>
-      <div class="filter-group">
-        <label>Sort By</label>
-        <select id="sortFilter">
-          <option value="newest">Newest</option>
-          <option value="price-asc">Price: Low to High</option>
-          <option value="price-desc">Price: High to Low</option>
-          <option value="beds-desc">Beds: Most First</option>
-          <option value="sqft-desc">Sqft: Largest First</option>
-        </select>
-      </div>
-      <div class="filter-group filter-reset">
-        <label>&nbsp;</label>
-        <button class="btn btn-ghost" id="resetFilters" type="button">Reset Filters</button>
+      <div class="live-search-links">
+        <a href="https://reb365.com/api/WebsiteSharedSearch/redirect/3377" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Browse Live Listings →</a>
       </div>
     </div>
-
-    <div class="active-chips" id="activeChips"></div>
-
-    <div class="results-bar">
-      <span id="resultsCount">Loading homes…</span>
-    </div>
-
-    <div class="listing-grid" id="listingGrid"></div>
-    <p class="no-results" id="noResults">No homes match your filters yet. Try widening your price range or clearing a filter.</p>
 
     <div class="listings-foot">
       <a href="#contact" class="btn btn-ghost">Don't see the right fit? Ask Kerem →</a>
-    </div>
-
-    <div class="live-search-cta reveal">
-      <div class="live-search-text">
-        <b>Want real-time, up-to-the-minute listings right now?</b>
-        <span>The search above is a preview — browse Kerem's live inventory directly on Zillow or Redfin.</span>
-      </div>
-      <div class="live-search-links">
-        <a href="https://www.zillow.com/profile/keremgorgulu" target="_blank" rel="noopener" class="live-search-link">
-          <span>Search on Zillow</span> ↗
-        </a>
-        <a href="https://www.redfin.com/real-estate-agents/kerem-gorgulu" target="_blank" rel="noopener" class="live-search-link">
-          <span>Search on Redfin</span> ↗
-        </a>
-      </div>
     </div>
   </div>
 </section>
@@ -1131,175 +1042,60 @@
   }, { threshold: 0.5 });
   countEls.forEach(el => countObserver.observe(el));
 
-  // ---------- HOME SEARCH & FILTERS ----------
-  const listingsData = [
-    { id:1, price:875000, beds:4, baths:3.5, sqft:3400, type:'Single Family', area:'Panther Creek Estates', neighborhood:'Allen', city:'Allen, TX', status:'sale', tag:'Just Listed' },
-    { id:2, price:525000, beds:4, baths:2.5, sqft:2650, type:'Single Family', area:'Deerfield', neighborhood:'Allen', city:'Allen, TX', status:'sale', tag:'Open House' },
-    { id:3, price:610000, beds:3, baths:2,   sqft:1950, type:'Single Family', area:'East Dallas', neighborhood:'Dallas', city:'Dallas, TX', status:'sale', tag:'New Price' },
-    { id:4, price:398000, beds:3, baths:2.5, sqft:1820, type:'Townhouse',    area:'Deerfield North', neighborhood:'Allen', city:'Allen, TX', status:'sale', tag:'New' },
-    { id:5, price:650000, beds:4, baths:3,   sqft:3050, type:'Single Family', area:'Starwood', neighborhood:'Frisco', city:'Frisco, TX', status:'sale', tag:null },
-    { id:6, price:312000, beds:2, baths:2,   sqft:1240, type:'Condo',        area:'Parkwood Hills', neighborhood:'Plano', city:'Plano, TX', status:'sale', tag:null },
-    { id:7, price:3200,   beds:4, baths:3,   sqft:2980, type:'Single Family', area:'Panther Creek Estates', neighborhood:'Allen', city:'Allen, TX', status:'rent', tag:'For Rent' },
-    { id:8, price:2450,   beds:2, baths:2.5, sqft:1600, type:'Townhouse',    area:'East Dallas', neighborhood:'Dallas', city:'Dallas, TX', status:'rent', tag:'For Rent' },
-    { id:9, price:189000, beds:0, baths:0,   sqft:0,    type:'Land', lot:'0.35 acre', area:'Deerfield', neighborhood:'Allen', city:'Allen, TX', status:'sale', tag:'Lot' },
-    { id:10, price:540000, beds:4, baths:2.5, sqft:2400, type:'Single Family', area:'Twin Lakes', neighborhood:'Wylie', city:'Wylie, TX', status:'sale', tag:null },
-    { id:11, price:615000, beds:4, baths:3,   sqft:2700, type:'Single Family', area:'Maxwell Creek', neighborhood:'Murphy', city:'Murphy, TX', status:'sale', tag:null }
-  ];
-  const iconVariants = [
-    '<path d="M10 55 L50 25 L90 55"/><path d="M20 50 V85 H80 V50"/><rect x="45" y="62" width="10" height="23"/><rect x="28" y="58" width="12" height="12"/><rect x="60" y="58" width="12" height="12"/>',
-    '<path d="M12 58 L50 28 L88 58"/><path d="M22 52 V84 H78 V52"/><rect x="44" y="64" width="12" height="20"/><rect x="30" y="60" width="10" height="10"/><rect x="60" y="60" width="10" height="10"/><path d="M8 58 H92" opacity="0.6"/>',
-    '<path d="M18 60 H82 V40 H60 V25 H18 Z"/><rect x="26" y="46" width="10" height="10"/><rect x="42" y="46" width="10" height="10"/><rect x="66" y="46" width="10" height="10"/><path d="M46 60 V80 H58 V60"/>'
-  ];
-  const landIconPaths = '<rect x="15" y="15" width="70" height="70" stroke-dasharray="6 6"/><path d="M50 55 L50 75 M50 55 L40 42 M50 55 L60 42"/><circle cx="50" cy="35" r="8"/>';
-  const artVariants = ['clay', 'honey', 'dusk', 'warm', 'gold'];
+  // ---------- LIVE MLS SEARCH ----------
+  const LIVE_MLS_URL = 'https://reb365.com/api/WebsiteSharedSearch/redirect/3377';
 
-  function renderCard(item) {
-    const art = artVariants[item.id % artVariants.length];
-    const paths = item.type === 'Land' ? landIconPaths : iconVariants[item.id % iconVariants.length];
-    const priceStr = item.status === 'rent' ? `$${item.price.toLocaleString()}/mo` : `$${item.price.toLocaleString()}`;
-    let metaHTML;
-    if (item.type === 'Land') {
-      metaHTML = `<span>📐 ${item.lot} lot</span><span>🏷 Buildable</span>`;
-    } else {
-      const bathsDisp = item.baths % 1 === 0 ? item.baths : item.baths.toFixed(1);
-      metaHTML = `<span>🛏 ${item.beds} bd</span><span>🛁 ${bathsDisp} ba</span><span>📐 ${item.sqft.toLocaleString()} sqft</span>`;
-    }
-    return `
-      <div class="listing-card">
-        <div class="listing-photo">
-          <div class="art-panel ${art}">
-            <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>
-          </div>
-          ${item.tag ? `<span class="listing-tag">${item.tag}</span>` : ''}
-          <span class="listing-type-tag">${item.type}</span>
-          <div class="listing-heart" onclick="this.classList.toggle('active'); this.textContent=this.classList.contains('active')?'♥':'♡'">♡</div>
-        </div>
-        <div class="listing-body">
-          <div class="listing-price">${priceStr}</div>
-          <div class="listing-addr">${item.area}, ${item.city}</div>
-          <div class="listing-meta">${metaHTML}</div>
-        </div>
-      </div>`;
+  function openLiveMLS() {
+    const keyword = document.getElementById('filterKeyword')?.value.trim();
+    const city = document.getElementById('neighborhoodFilter')?.value;
+    const priceMin = document.getElementById('priceMin')?.value;
+    const priceMax = document.getElementById('priceMax')?.value;
+    const beds = document.querySelector('#bedsGroup .pill.active')?.dataset.val || '0';
+    const baths = document.querySelector('#bathsGroup .pill.active')?.dataset.val || '0';
+
+    // The broker/IDX search is the authoritative live MLS search.
+    // Keep this site free of MLS credentials and avoid scraping listing data.
+    window.open(LIVE_MLS_URL, '_blank', 'noopener,noreferrer');
   }
 
-  function setPill(groupId, val) {
-    document.getElementById(groupId).querySelectorAll('.pill').forEach(p => {
-      p.classList.toggle('active', p.dataset.val === String(val));
-    });
-  }
-
-  function getFilterState() {
-    return {
-      keyword: document.getElementById('filterKeyword').value.trim().toLowerCase(),
-      status: document.querySelector('.status-btn.active').dataset.val,
-      priceMin: parseFloat(document.getElementById('priceMin').value) || null,
-      priceMax: parseFloat(document.getElementById('priceMax').value) || null,
-      beds: parseInt(document.querySelector('#bedsGroup .pill.active').dataset.val, 10),
-      baths: parseInt(document.querySelector('#bathsGroup .pill.active').dataset.val, 10),
-      types: Array.from(document.querySelectorAll('#typeGroup input:checked')).map(i => i.value),
-      neighborhood: document.getElementById('neighborhoodFilter').value,
-      sqftMin: parseFloat(document.getElementById('sqftMin').value) || null,
-      sort: document.getElementById('sortFilter').value
-    };
-  }
-
-  function renderChips(s) {
-    const chipsEl = document.getElementById('activeChips');
-    const chips = [];
-    if (s.keyword) chips.push({ label: `"${s.keyword}"`, clear: () => { document.getElementById('filterKeyword').value = ''; } });
-    if (s.priceMin || s.priceMax) {
-      const lbl = `$${s.priceMin ? s.priceMin.toLocaleString() : '0'} – ${s.priceMax ? '$' + s.priceMax.toLocaleString() : 'Any'}`;
-      chips.push({ label: lbl, clear: () => { document.getElementById('priceMin').value = ''; document.getElementById('priceMax').value = ''; } });
-    }
-    if (s.beds) chips.push({ label: `${s.beds}+ beds`, clear: () => setPill('bedsGroup', 0) });
-    if (s.baths) chips.push({ label: `${s.baths}+ baths`, clear: () => setPill('bathsGroup', 0) });
-    if (s.neighborhood !== 'all') chips.push({ label: s.neighborhood, clear: () => { document.getElementById('neighborhoodFilter').value = 'all'; } });
-    if (s.sqftMin) chips.push({ label: `${s.sqftMin.toLocaleString()}+ sqft`, clear: () => { document.getElementById('sqftMin').value = ''; } });
-
-    chipsEl.innerHTML = chips.map((c, i) => `<span class="chip">${c.label}<button type="button" data-i="${i}">×</button></span>`).join('');
-    chipsEl.querySelectorAll('button').forEach((btn, i) => {
-      btn.addEventListener('click', () => { chips[i].clear(); applyFilters(); });
-    });
-  }
-
-  function applyFilters() {
-    const s = getFilterState();
-    let results = listingsData.filter(item => {
-      if (s.status !== 'all' && item.status !== s.status) return false;
-      if (s.keyword && !`${item.area} ${item.neighborhood} ${item.city}`.toLowerCase().includes(s.keyword)) return false;
-      if (s.priceMin && item.price < s.priceMin) return false;
-      if (s.priceMax && item.price > s.priceMax) return false;
-      if (s.beds && item.beds < s.beds) return false;
-      if (s.baths && item.baths < s.baths) return false;
-      if (s.types.length && !s.types.includes(item.type)) return false;
-      if (s.neighborhood !== 'all' && item.neighborhood !== s.neighborhood) return false;
-      if (s.sqftMin && item.sqft < s.sqftMin) return false;
-      return true;
-    });
-
-    switch (s.sort) {
-      case 'price-asc': results.sort((a, b) => a.price - b.price); break;
-      case 'price-desc': results.sort((a, b) => b.price - a.price); break;
-      case 'beds-desc': results.sort((a, b) => b.beds - a.beds); break;
-      case 'sqft-desc': results.sort((a, b) => b.sqft - a.sqft); break;
-      default: results.sort((a, b) => a.id - b.id);
-    }
-
-    const grid = document.getElementById('listingGrid');
-    const noResults = document.getElementById('noResults');
-    document.getElementById('resultsCount').textContent = `${results.length} home${results.length === 1 ? '' : 's'} found`;
-    if (results.length === 0) {
-      grid.innerHTML = '';
-      noResults.classList.add('show');
-    } else {
-      noResults.classList.remove('show');
-      grid.innerHTML = results.map(renderCard).join('');
-    }
-    renderChips(s);
-  }
-
-  document.getElementById('filterKeyword').addEventListener('input', applyFilters);
   document.getElementById('filterKeyword').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') { e.preventDefault(); applyFilters(); document.getElementById('listings').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    if (e.key === 'Enter') { e.preventDefault(); openLiveMLS(); }
   });
-  document.getElementById('searchIconBtn').addEventListener('click', () => {
-    applyFilters();
-    document.getElementById('filterKeyword').focus();
-  });
+  document.getElementById('searchIconBtn').addEventListener('click', openLiveMLS);
   document.querySelectorAll('.status-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      applyFilters();
     });
   });
-  ['priceMin', 'priceMax', 'sqftMin'].forEach(id => {
-    document.getElementById(id).addEventListener('input', applyFilters);
-  });
   document.querySelectorAll('#bedsGroup .pill').forEach(p => {
-    p.addEventListener('click', () => { setPill('bedsGroup', p.dataset.val); applyFilters(); });
+    p.addEventListener('click', () => {
+      document.querySelectorAll('#bedsGroup .pill').forEach(x => x.classList.remove('active'));
+      p.classList.add('active');
+    });
   });
   document.querySelectorAll('#bathsGroup .pill').forEach(p => {
-    p.addEventListener('click', () => { setPill('bathsGroup', p.dataset.val); applyFilters(); });
+    p.addEventListener('click', () => {
+      document.querySelectorAll('#bathsGroup .pill').forEach(x => x.classList.remove('active'));
+      p.classList.add('active');
+    });
   });
-  document.querySelectorAll('#typeGroup input').forEach(cb => cb.addEventListener('change', applyFilters));
-  document.getElementById('neighborhoodFilter').addEventListener('change', applyFilters);
-  document.getElementById('sortFilter').addEventListener('change', applyFilters);
+
   document.getElementById('resetFilters').addEventListener('click', () => {
     document.getElementById('filterKeyword').value = '';
     document.querySelectorAll('.status-btn').forEach(b => b.classList.toggle('active', b.dataset.val === 'sale'));
     document.getElementById('priceMin').value = '';
     document.getElementById('priceMax').value = '';
-    setPill('bedsGroup', 0);
-    setPill('bathsGroup', 0);
+    document.querySelectorAll('#bedsGroup .pill').forEach(p => p.classList.toggle('active', p.dataset.val === '0'));
+    document.querySelectorAll('#bathsGroup .pill').forEach(p => p.classList.toggle('active', p.dataset.val === '0'));
     document.querySelectorAll('#typeGroup input').forEach(cb => cb.checked = true);
     document.getElementById('neighborhoodFilter').value = 'all';
     document.getElementById('sqftMin').value = '';
     document.getElementById('sortFilter').value = 'newest';
-    applyFilters();
   });
 
-  applyFilters();
+  const liveCount = document.getElementById('resultsCount');
+  if (liveCount) liveCount.textContent = 'Live MLS search available';
 
   // Contact form submit
   const contactForm = document.getElementById('contactForm');
