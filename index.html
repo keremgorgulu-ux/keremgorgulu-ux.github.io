@@ -133,7 +133,7 @@
     position:relative; border-radius:22px; overflow:hidden; box-shadow:var(--shadow-soft);
     aspect-ratio:4/5;
   }
-  .hero-media .frame img{width:100%; height:100%; object-fit:cover;}
+  .hero-media .frame img{width:100%; height:100%; object-fit:cover; object-position:center 28%;}
 
   /* ---------- ART PANELS (in place of stock photography) ---------- */
   .art-panel{
@@ -601,17 +601,7 @@
     </div>
     <div class="hero-media">
       <div class="frame">
-        <div class="art-panel warm">
-          <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M15 52 L50 22 L85 52"/>
-            <path d="M24 46 V82 H76 V46"/>
-            <rect x="43" y="60" width="14" height="22"/>
-            <rect x="30" y="58" width="10" height="10"/>
-            <rect x="60" y="58" width="10" height="10"/>
-            <path d="M40 22 V12 H48 V18"/>
-          </svg>
-          <div class="art-caption">Allen · North Texas</div>
-        </div>
+        <img src="kerem-profile.jpg" alt="Kerem Gorgulu, North Texas real estate agent" loading="eager">
       </div>
       <div class="badge-card">
         <div class="icon">🏡</div>
@@ -663,50 +653,11 @@
   </div>
 </section>
 
-<!-- ================= LISTINGS ================= -->
-<section class="listings" id="listings">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">Search Homes</span>
-      <h2>Find your next North Texas home.</h2>
-      <p>Search current homes across North Texas with Kerem's live MLS search. Browse current North Texas listings through Kerem's broker-provided live MLS search.</p>
-    </div>
-
-    <div class="search-bar reveal">
-      <div class="search-input-wrap">
-        <button type="button" class="search-icon" id="searchIconBtn" aria-label="Open live MLS search">🔍</button>
-        <input type="text" id="filterKeyword" placeholder="City, ZIP, neighborhood, or address">
-      </div>
-      <button type="button" class="btn btn-primary" onclick="openLiveMLS()">Search Live MLS →</button>
-    </div>
-
-    <div class="live-search-cta reveal" style="margin-top:0;">
-      <div class="live-search-text">
-        <b>Live North Texas MLS listings</b>
-        <span>Search current broker-provided REB365 IDX listings with detailed filters, map search, pricing, bedrooms, bathrooms, and property types.</span>
-      </div>
-      <div class="live-search-links">
-        <a href="https://reb365.com/api/WebsiteSharedSearch/redirect/3377" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Browse Live Listings →</a>
-      </div>
-    </div>
-
-    <div class="listings-foot">
-      <a href="#contact" class="btn btn-ghost">Don't see the right fit? Ask Kerem →</a>
-    </div>
-  </div>
-</section>
-
 <!-- ================= ABOUT ================= -->
 <section class="about" id="about">
   <div class="wrap">
     <div class="about-media reveal">
-      <div class="art-panel gold" style="border-radius:20px; box-shadow:var(--shadow-card); aspect-ratio:3/4;">
-        <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:38%; height:38%;">
-          <circle cx="50" cy="36" r="16"/>
-          <path d="M20 88 C20 66 33 56 50 56 C67 56 80 66 80 88"/>
-        </svg>
-        <div class="art-caption">Kerem Gorgulu · REB365</div>
-      </div>
+      <img src="kerem-profile.jpg" alt="Kerem Gorgulu, REB365 real estate agent" loading="lazy">
       <div class="exp-badge"><b>EN·TR</b><span>Bilingual Agent</span></div>
     </div>
     <div class="about-copy reveal">
@@ -1041,61 +992,6 @@
     });
   }, { threshold: 0.5 });
   countEls.forEach(el => countObserver.observe(el));
-
-  // ---------- LIVE MLS SEARCH ----------
-  const LIVE_MLS_URL = 'https://reb365.com/api/WebsiteSharedSearch/redirect/3377';
-
-  function openLiveMLS() {
-    const keyword = document.getElementById('filterKeyword')?.value.trim();
-    const city = document.getElementById('neighborhoodFilter')?.value;
-    const priceMin = document.getElementById('priceMin')?.value;
-    const priceMax = document.getElementById('priceMax')?.value;
-    const beds = document.querySelector('#bedsGroup .pill.active')?.dataset.val || '0';
-    const baths = document.querySelector('#bathsGroup .pill.active')?.dataset.val || '0';
-
-    // The broker/IDX search is the authoritative live MLS search.
-    // Keep this site free of MLS credentials and avoid scraping listing data.
-    window.open(LIVE_MLS_URL, '_blank', 'noopener,noreferrer');
-  }
-
-  document.getElementById('filterKeyword').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') { e.preventDefault(); openLiveMLS(); }
-  });
-  document.getElementById('searchIconBtn').addEventListener('click', openLiveMLS);
-  document.querySelectorAll('.status-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
-  });
-  document.querySelectorAll('#bedsGroup .pill').forEach(p => {
-    p.addEventListener('click', () => {
-      document.querySelectorAll('#bedsGroup .pill').forEach(x => x.classList.remove('active'));
-      p.classList.add('active');
-    });
-  });
-  document.querySelectorAll('#bathsGroup .pill').forEach(p => {
-    p.addEventListener('click', () => {
-      document.querySelectorAll('#bathsGroup .pill').forEach(x => x.classList.remove('active'));
-      p.classList.add('active');
-    });
-  });
-
-  document.getElementById('resetFilters').addEventListener('click', () => {
-    document.getElementById('filterKeyword').value = '';
-    document.querySelectorAll('.status-btn').forEach(b => b.classList.toggle('active', b.dataset.val === 'sale'));
-    document.getElementById('priceMin').value = '';
-    document.getElementById('priceMax').value = '';
-    document.querySelectorAll('#bedsGroup .pill').forEach(p => p.classList.toggle('active', p.dataset.val === '0'));
-    document.querySelectorAll('#bathsGroup .pill').forEach(p => p.classList.toggle('active', p.dataset.val === '0'));
-    document.querySelectorAll('#typeGroup input').forEach(cb => cb.checked = true);
-    document.getElementById('neighborhoodFilter').value = 'all';
-    document.getElementById('sqftMin').value = '';
-    document.getElementById('sortFilter').value = 'newest';
-  });
-
-  const liveCount = document.getElementById('resultsCount');
-  if (liveCount) liveCount.textContent = 'Live MLS search available';
 
   // Contact form submit
   const contactForm = document.getElementById('contactForm');
