@@ -547,6 +547,11 @@
     .live-search-links{justify-content:center;}
     .live-search-link{flex:1; justify-content:center;}
   }
+
+  .contact-phone-link,.contact-text-link{display:block;color:var(--ink-soft);text-decoration:none;}
+  .contact-phone-link:hover,.contact-text-link:hover{color:var(--terracotta);}
+  .contact-text-link{font-size:13px;margin-top:3px;font-weight:700;}
+  .contact-icon-link{color:inherit;text-decoration:none;flex-shrink:0;}
 </style>
 
 <style id="live-mls-search-style">
@@ -837,26 +842,32 @@
       <span class="eyebrow">Get In Touch</span>
       <h2 style="margin-top:16px;">Let's find your next front door.</h2>
       <p>Tell me a little about what you're looking for and I'll get back to you within a few hours — usually a lot sooner.</p>
-      <div class="contact-row"><div class="icon">📞</div><div><b>Call or Text</b><span>(469) 338-8141</span></div></div>
+      <div class="contact-row"><a class="contact-icon-link" href="tel:+14693388141" aria-label="Call or text Kerem at 469-338-8141"><div class="icon">📞</div></a><div><b>Call or Text</b><a class="contact-phone-link" href="tel:+14693388141">(469) 338-8141</a><a class="contact-text-link" href="sms:+14693388141">Text Me</a></div></div>
       <div class="contact-row"><div class="icon">✉️</div><div><b>Email</b><span>keremgorgulu@gmail.com</span></div></div>
       <div class="contact-row"><div class="icon">📍</div><div><b>Office</b><span>860 F Avenue, Ste 100, Plano, TX 75074</span></div></div>
       <div class="contact-row"><div class="icon">🗺️</div><div><b>Serving</b><span>Frisco, Allen, Murphy, Dallas, Wylie &amp; Plano</span></div></div>
     </div>
     <div class="contact-form reveal">
-      <form id="contactForm">
+      <form id="contactForm" action="https://formsubmit.co/keremgorgulu@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New KG Realty Website Consultation Request">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://kgrealty.it.com/?contact=success#contact">
+        <input type="hidden" name="_url" value="https://kgrealty.it.com/">
+        <input type="hidden" name="_honey" value="" style="display:none">
+
         <div id="formFields">
           <div class="form-row">
-            <div class="field"><label>First Name</label><input type="text" required placeholder="Jordan"></div>
-            <div class="field"><label>Last Name</label><input type="text" required placeholder="Rivera"></div>
+            <div class="field"><label for="firstName">First Name</label><input id="firstName" name="first_name" type="text" required placeholder="Jordan"></div>
+            <div class="field"><label for="lastName">Last Name</label><input id="lastName" name="last_name" type="text" required placeholder="Rivera"></div>
           </div>
           <div class="form-row">
-            <div class="field"><label>Email</label><input type="email" required placeholder="you@email.com"></div>
-            <div class="field"><label>Phone</label><input type="tel" required placeholder="(512) 555-0100"></div>
+            <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required placeholder="you@email.com"></div>
+            <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" required placeholder="(512) 555-0100"></div>
           </div>
           <div class="form-row">
             <div class="field full">
-              <label>I'm looking to...</label>
-              <select required>
+              <label for="interest">I'm looking to...</label>
+              <select id="interest" name="looking_for" required>
                 <option value="">Select one</option>
                 <option>Buy a home</option>
                 <option>Sell a home</option>
@@ -866,10 +877,14 @@
             </div>
           </div>
           <div class="form-row">
-            <div class="field full"><label>Tell me more</label><textarea placeholder="Timeline, budget, neighborhoods you love..."></textarea></div>
+            <div class="field full"><label for="message">Tell me more</label><textarea id="message" name="message" placeholder="Timeline, budget, neighborhoods you love..."></textarea></div>
           </div>
-          <button type="submit" class="btn btn-primary">Book My Free Consultation →</button>
+          <div id="contactFormError" role="alert" style="display:none; margin:0 0 14px; color:#b42318; font-size:13px; font-weight:600;">
+            Something went wrong sending your request. Please try again or call (469) 338-8141.
+          </div>
+          <button id="contactSubmitBtn" type="submit" class="btn btn-primary">Book My Free Consultation →</button>
         </div>
+
         <div class="form-success" id="formSuccess">
           <div class="check">✓</div>
           <h3 style="font-size:20px; margin-bottom:8px;">You're all set!</h3>
@@ -1011,69 +1026,31 @@
   }, { threshold: 0.5 });
   countEls.forEach(el => countObserver.observe(el));
 
-  // Contact form submit
+  // Contact form: use normal POST to FormSubmit.
+  // This avoids browser/CORS issues on GitHub Pages.
   const contactForm = document.getElementById('contactForm');
-  contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    document.getElementById('formFields').style.display = 'none';
-    document.getElementById('formSuccess').classList.add('show');
-  });
-</script>
+  const contactFormError = document.getElementById('contactFormError');
+  const contactSubmitBtn = document.getElementById('contactSubmitBtn');
 
-<script id="live-mls-search-script">
-(function () {
-  const input = document.getElementById('liveMlsSearchInput');
-  const button = document.getElementById('liveMlsSearchBtn');
-  if (!input || !button) return;
+  if (contactForm) {
+    contactForm.addEventListener('submit', () => {
+      if (contactFormError) contactFormError.style.display = 'none';
+      if (contactSubmitBtn) {
+        contactSubmitBtn.disabled = true;
+        contactSubmitBtn.textContent = 'Sending…';
+      }
+      // Do not preventDefault: the browser submits the POST directly to FormSubmit.
+    });
 
-  const REB365_SEARCH = 'https://reb365.com/search-results';
-
-  function buildSearchUrl(raw) {
-    const term = raw.trim();
-    const params = new URLSearchParams();
-
-    // REB365 / OSI IDX shared-search settings.
-    params.set('page', '0');
-    params.set('State', 'TX');
-    params.set('SortResult', 'newest');
-    params.set('ListingCategoryList', '1,2');
-    params.set('KeywordArr', '[]');
-    params.set('HomeOwnersAssociation', '1');
-    params.set('Stories', '1');
-    params.set('WebsiteSharedSearchID', '3377');
-
-    if (!term) {
-      params.set('searchText', 'Texas');
-      return REB365_SEARCH + '?' + params.toString();
+    // FormSubmit redirects back here after a successful submission.
+    const contactParams = new URLSearchParams(window.location.search);
+    if (contactParams.get('contact') === 'success') {
+      const fields = document.getElementById('formFields');
+      const success = document.getElementById('formSuccess');
+      if (fields) fields.style.display = 'none';
+      if (success) success.classList.add('show');
+      window.history.replaceState({}, document.title, window.location.pathname + '#contact');
     }
-
-    // ZIP code search.
-    // Send the ZIP through the explicit ZIP fields as well as the
-    // universal OSI search field so the IDX applies the location filter.
-    if (/^\d{5}(-\d{4})?$/.test(term)) {
-      params.set('searchText', term);
-      params.set('Zip', term);
-      params.set('ZipCode', term);
-      params.set('PostalCode', term);
-      return REB365_SEARCH + '?' + params.toString();
-    }
-
-    // Street-address search.
-    if (/^\d+\s+/.test(term)) {
-      params.set('searchText', term);
-      params.set('Address', term);
-      params.set('StreetAddress', term);
-      return REB365_SEARCH + '?' + params.toString();
-    }
-
-    // City / neighborhood search.
-    // searchText provides the general OSI IDX search while City and
-    // Neighborhood give the IDX a specific location field to use.
-    params.set('searchText', term);
-    params.set('City', term);
-    params.set('Neighborhood', term);
-
-    return REB365_SEARCH + '?' + params.toString();
   }
 
   function openLiveMLS() {
