@@ -1,132 +1,147 @@
 #!/usr/bin/env python3
 from pathlib import Path
-import html as htmlmod
+import html
 import re
-import requests
-from bs4 import BeautifulSoup
-from urllib.parse import urljoin
 
-HAR = "https://www.har.com/kerem-gorgulu/agent_ntreis-0717217"
 INDEX = Path("index.html")
 FIXED_SOLD = "55"
+HAR_PROFILE = "https://www.har.com/kerem-gorgulu/agent_ntreis-0717217"
 
-resp = requests.get(HAR, headers={"User-Agent": "Mozilla/5.0"}, timeout=30)
-resp.raise_for_status()
-soup = BeautifulSoup(resp.text, "html.parser")
-text = re.sub(r"\s+", " ", soup.get_text(" ", strip=True))
+# Owner-verified active inventory as of 2026-09-10.
+# These six listings are intentionally authoritative until Kerem changes them.
+LISTINGS = [
+    {
+        "type": "For Sale",
+        "price": "$509,000",
+        "address": "5716 Kate Ave",
+        "city": "Plano",
+        "state": "TX",
+        "zip": "75024",
+        "beds": "3",
+        "baths": "3 full + 1 half",
+        "sqft": "2,065",
+        "image": "https://photos.zillowstatic.com/fp/7a347cbd962c5025f1a35ed458f7e453-cc_ft_960.jpg",
+        "url": "https://www.har.com/homedetail/5716-kate-ave-plano-tx-75024/1152890"
+    },
+    {
+        "type": "For Sale",
+        "price": "$595,000",
+        "address": "2507 Gentle Knoll Dr",
+        "city": "Melissa",
+        "state": "TX",
+        "zip": "75454",
+        "beds": "4",
+        "baths": "3 full + 1 half",
+        "sqft": "3,135",
+        "image": "data:image/jpeg;base64,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[... ELLIPSIZATION ...]aD26098iEmuFIgbTQAgk6WlR6I9PJPp0TQAszaFtg8uqhjuOUs3B2VsWocUwlgc3du6mg9HwpM5vVKF3aMv63NPRvUoqP8Ej4H3Ii0eKB2h0RCO9XSbJf1inuxqlaAC3xSpOSToll0QPlFJi3on1ToAy1qiFBPoCmcBWiB70UZB7TNehGyfdPfVRTWQma4OF0n1TIBylp7u3Qp9Dod0/LVIgEeKqBy0m+KQLmnvDTkU9g+aoGq5paXuQnQmt6RD2mJvmmtKzvuildCgkTfPVPofBNlQIHVKyUwGqY2HIEV1nBv3Ie78guTJJXWcG/ch7vyCsSub0ATh55JsvVCHi6pBJZ5lPpzQuc1rbJQDNIOgUBufWjdSmawk24+5OBQ0BRAc6UBDK06JPefqptOn4J+WyoiDcx1ciDAL1JRBvhSIaClFAKOlpwzxSq0405oCDa5pyw/apML6p/NA1OA3BCRB50nuvNNZJ01VDZXXYpG0vGhopAmktuqBF7hyCbO7mAnpCgcHqNU9m0N67prJKaBe5C4+CK6CTdtwoGabNVqpARsOSYalRYuURQ0N3GkEMp9ZxDYwT2bdXHwVp5YBpWijgjEcdDzPmiJY7fdFKw7mAnFb2EgxvKk7ms+yEQgGnmEg1p0BSDW5boJ2tbewVC7MZiLSyAOpIMaTdfih01QKtdk5HgmAHUpy0dSgYN1ogIwA06BCGE/WKYtN+0UEhFbaJVzQ06vaSIdXtJsIpufVKnDmEwzjorsP5BIg9ExvNqiBNDZNoFrSNwjaDabMb2CfvDkE2pyLTDxSs9AlreoUD3raJpOyjsnRIE1ooIBcGJ/7Z0P6qd2/VBK0yNOmoCbDvMsdE6jRFI2T0Q0VIWHmUJbpuiAITtARAN5kqMmtkBEUkCChsEJjVoaESEwKQIGiR30QOD1TXYQkFDqgk0TVZ0TXohkcQBlBOvJRRc0rsJgdPNPoFUIJnbWi0SvSkAcjzQ5SDf1eiOqIpLnugEEOTFuiRb3rGhQ56NO08UDkGvBMQT0R2dk2yATdaJgTzREAoco2CB0rsapq0Qk/BAR2XV8G/ch7vyC5MgkLrODfuQ8h+QWolcyHAmgmL9crRbvyQNa+Q7ZGdOZUrQAMrG0oBawX3nWVOGoMpafZs9bSJfyB+KA7KRvrqgt//AIUIc8u1BpNqmBSs9EBBKQJI6KA7TqIEk1aej1QGK6pwBe6ANcdykS1umcWglquaY+aiAB3IT5STQKbEgbe5TloHX4oAytLTOAG518k2Cc2hv+KEAn/9TVeqehsmw+l1/dPQ8fimyjYFKqCBaJ9OibKKslIKLo5pNlB0CfKll0sIHoNGhqt1WYO3xBedWM0HiUeJeWsyt1cdPNFEwRsDBtzQSZRWyYBpvQoXPTl5HgmwQAu63RFoG4GqjbrraIAucqCLRRqkzW0EJsGrTklo1RBhoTFoDUPeq70Ta9UBECk9Ac0GpCVeKAgkXC0OVLLryUUWZ296JB9DU+5LJslk8kQmu11O6ckHmmpOR4q7C7vUJWKIsJZbCHQDqrsO3zUnvChs8gkb5qbNJfgnJHJQnQJg5Ta6SudRu0DjR3pDuU5Gii6EHlrtBYUD3CCZr26NdyUuh9yUrRLEW0LGrT0VKlJBAIOhUb7Cjw0uaMsIojkjc4kbKpoFkc9EzkznG6Tg2ougpXqiNITXRFK9EhZG6QFjQ6prO1aomishOXHmhOqV1odUQrT3QTaFORTgCgFpcJD0Rn8EAPfIo6c0+ZAQcLTE+9C48wms1qqiS9NkP4Ib6JyRzQPvzQuHLknTWAKKAO8H6G2VsizZhYTWmOu2hQPqCleuqEuykA6IrvTRAxQ69UrISPUKATYXXcF/cm+Q/ILkCbC6/gv7i3yH5BaxTJzlc0xly6c1hjjEzD3w0jehyCQ4q4TB72jIdLXLvYs8o3M5PJEN9Ss88YwwqrI5kDQJ28VwsgzCQ1yFbrXPFrcaNg8kroarPfxaJotgcfNRScajHsxku5AlTuYpyjULrHRLvEdAspvGW23PER18EMvGspFMBZe5Kndw+nKNYBx+sa8k4Dyd6Cy3cbZG3VmugFdVM7i8TYmneQ7t6J3MTlGgQ4IMpBJOpKzmcbw5JzhzR4qX5Ww10SQDzTuY/TlF0AndE3wWY/jcMb6DSW9VMOKwuAcAQCNqTuY/V5RbdJXmUmsF3rap/KeFBcbJy76IHcaiBIbE4jqTuncx+nKNB+pCZxIFc1RfxuCNtlt6clCzjbX94sAF7dAp3cfpzjUynxSuuayX8ccXANYGj+pDFxskOD4wTyI2U7uJzjZFkalJxo6LJPG2N0Mbs3mmbxkEZnMyhw0Tu4nKNYPzJw4FubccvNYWI4u7KW1l00y7qEcSmdCI2StBGvuWe9DuRutOeYvd9XRv9ypheXzWA7iU5yhpaGt3PVBPxSYOovy5hs1O9E7kdEGi9ijyg7rlYuJ4mswmoDYHW1OeN4oNJOXMRYIV72J3I6MNb1RsAGy5hvFcXl3t/Oxumw/E8dDq9zXNvmFZ1sTnHUFtjxKEt6ushYB4/IZB9GKHNTP43ZbUfi7kr3cTnG0WnTXUpDetFhu405z2uZGKG4B2QYbi8gNyjMCSbU7uJyjoe7W4SLQVhzcXAkYYjYdyISh40wy1LbGjnur3cV5RuVQTaWs6TimHYxpElhx3HJUnccPaU1nd62repIcpG7I7KN0zSKs7UsqHi0cjqk7hA0vmixPGIocuQdo1w36KdzFeUagc3kmzarNk4pCIM0TwZK0HJZ7OMytmPaU4ACx0Kd2Jyjou0y6JjJqdFjO47AbDWEn80x44wtYWxUbpwJ2TuReUbIfqmLr8FVhx+GlDS19F3I8lO7F4dhFyMvpa1Mpf1dwQ1OqfYIY8ZBLox7Ha0KKftmOdlDgT0Tc+rsWqYklJzwB3joozNECWmRoPmruG4MWTWyka2jqSqhxuGErWdqCTtqrTZoiNJGqSw3EMreynBH19j4/8qegWB3Ii6KDEATxEMe0Obq03zUMOIAaM5Aa7fXZ3MKosABzQa1UThR0RtfG4aSCvApOyfbHvKKjvqmUhDftBDlab1HxRQG+iTb5qTKCNXD4pjQ5/FERmzeqanDyRAgHcIi69j4IIwb805KegDd+Cax1VCaSCTyTnVKx/4UIrYUgfwTluiaxzISzCtwogaNpUTtuiJbftBMHsqg4XzVDEEeaVH3pwWbF1JF8YHtj3qgSmKIyR/aQl8f2kQzqcKcLTUWa7t/EIiWdQkS2vaCAbvxCWVRvOUlzCCenVJsoc2/ZPMFARoLruC/uLfIfkFxrpGjmF2XBDeAaRtQ/ILWKVzHzGnF5cfEL/AO0f1SHoLiKo8QjI6dkf1XbpLHZw+McY4f5iYggh3EIz0+iP6om+gszTbcdEDyqI/qu2STs4fDjHGj0KmNZ8bEQOQiO3xQH0FktxGOaCf+3/AMrtUk7OHw1HGu9C8Q+s+PjPlER/dD8yJS63Y2M1sOzOn4rtEk7OHxOMca70Jkc4E4uImtSYj+qH5jPAoY1u9juH9V2iSnY6fw4xxR9CMSb/8AUWb/AMI6fikfQjEl1/KMfl2X/K7VJOzh8OMcafQqYggY2NvlF/yh+ZEwPdxsW1axH9V2iSdjp/DjHFP9B53PzDHRA1X7I/qk70HnJ0x8YH/tH9V2qSdjD4cY4h3oNiCWn5Qj7v8A2jr+KJ3oRO4uvHx0dh2R0/FdqknYw+HGOKHoNMCCcdGSNriP6pD0FkBcRjY9Rt2Z0/FdqknYw+HGOK+Y0uUNOOYa2+jOn4oXegkxBHr8deMR/VduknZw+HGOHHoJiAQRxGMV/wBo/qpHeg0rq/xzLGt9mf1XaJK9nD4cY4x/oTO4V6+wD/2z+qQ9CJqaDjmaDWozr+K7NJTsYfDjHFN9B8Q19+vx5enZH9UTvQic3WPYLN/sj+q7NJOx0/hxjjB6ETNsNx0YB6RH9UM3oPiHg5OIRsP/ALR/VdqknYw+HGOI+Ys9D/1Bljn2R/VL5iTmLKeIRkjY9kf1XbpK9nD4vGOK+YrwwN9dYa6xn9Uh6EYjLlPEI68Iv+V2qSnZw+HGOIZ6CztbRx8bvExH9U7fQfEtrLxFldDEa/NdsknYw+JxjiR6DTtfYx8dHcdkf1Qv9A5nbY+Owb1iP6ruElZ0cJ+HGOHHoJPmJ9fjF9Ij+qTfQOYaux8bjVfsz+q7hJOzh8XjHG/MmYMAGOYHAVfZn9UzvQmdzReOjzA+12R/Vdmkp2MPhqONj9CpmXWNj8xGf1UjfQ/EsNt4g0a/wz+q65JXs4fFcm/0SxD48px4vmch/VRD0LnIOfHsd0+jP6rsUk7OA4oeg0wcXevMzEaHsj+qMehU+zse0jmBGf1XZJJ2cE0435kzCsuOaKP2D+qKL0MxDHDNj2OZ9nsz+q7BJOzgaYDPRpjGZQ9n3T+qZ3ozG46vZ90/qugSW+Ma3XPfNltkiVoJ37p/VOPRoD/Ob90/qugSTjDlXPO9Gr/zm/dP6pfNofxm/dP6roUk4xeVc4fRcGvpm737J/VP82f+837p/VdEknGJyrnvmzt9M3T+k/qmPowD/nN+6f1XRJJxhyrnT6MXvO37p/VN81xdiZv3T+q6NJOMN1zp9Gf++37p/VL5saft2/dP6rokk4w3XPfNnW+2Z90/qg+azf4rPuH9V0iScYcq5z5sH+O3T+k/qkfRi95mfc/5XRpK8Ybrnfmyf4zPuf8AKb5sa/to/uf8ro0k1Ddc4fRcn/PZ9w/qm+a3/fZ9w/qukSU4w3XNfNb/AL7PuH9U3zUH8Zn3D+q6ZJXjDdcyfRS/8+P7n/K2eFRdhhzDYPZnLY50KV1VsH7U/wD7hSTRvb//2Q==",
+        "url": "https://www.har.com/homedetail/2507-gentle-knoll-dr-melissa-tx-75454/16722866"
+    },
+    {
+        "type": "For Sale",
+        "price": "$509,000",
+        "address": "821 Field Xing",
+        "city": "Little Elm",
+        "state": "TX",
+        "zip": "76227",
+        "beds": "6",
+        "baths": "4 full",
+        "sqft": "3,117",
+        "image": "https://photos.zillowstatic.com/fp/07eca0888e90bee720ecfeed342335a5-cc_ft_960.jpg",
+        "url": "https://www.har.com/homedetail/821-field-xing-aubrey-tx-76227/13505528"
+    },
+    {
+        "type": "For Rent",
+        "price": "$3,500 / mo",
+        "address": "2507 Gentle Knoll Dr",
+        "city": "Melissa",
+        "state": "TX",
+        "zip": "75454",
+        "beds": "4",
+        "baths": "3 full + 1 half",
+        "sqft": "3,135",
+        "image": "data:image/jpeg;base64,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[... ELLIPSIZATION ...]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",
+        "url": "https://www.har.com/homedetail/2507-gentle-knoll-dr-melissa-tx-75454/16722866"
+    },
+    {
+        "type": "For Rent",
+        "price": "$2,450 / mo",
+        "address": "10492 US Highway 69",
+        "city": "Whitewright",
+        "state": "TX",
+        "zip": "75491",
+        "beds": "3",
+        "baths": "2 full",
+        "sqft": "2,127",
+        "image": "https://photos.zillowstatic.com/fp/6fecb5c46b8999173b240f279fd77bd2-cc_ft_960.jpg",
+        "url": HAR_PROFILE
+    },
+    {
+        "type": "For Rent",
+        "price": "$3,395 / mo",
+        "address": "4517 Munger Ave #101",
+        "city": "Dallas",
+        "state": "TX",
+        "zip": "75204",
+        "beds": "2",
+        "baths": "2 full + 1 half",
+        "sqft": "1,901",
+        "image": "https://www.compass.com/m/4decfa4560628c825d6a7ff6f2b3aba42d9d724d_img_0_005b4/origin.webp",
+        "url": "https://www.har.com/homedetail/4517-munger-ave-101-dallas-tx-75204/17267895"
+    },
+]
+
 page = INDEX.read_text(encoding="utf-8")
 
-def count(label):
-    # Prefer the agent-profile summary links, e.g. "3 For Sale" / "3 For Rent".
-    for a in soup.find_all("a"):
-        t = re.sub(r"\s+", " ", a.get_text(" ", strip=True)).strip()
-        m = re.fullmatch(rf"(\d+)\s+{re.escape(label)}", t, re.I)
-        if m:
-            return m.group(1)
-    # Fallback for HAR markup changes.
-    for pat in (rf"(\d+)\s+{label}\b", rf"{label}\s+(\d+)\b"):
-        m = re.search(pat, text, re.I)
-        if m:
-            return m.group(1)
-    return None
-
-for_sale = count("For Sale")
-for_rent = count("For Rent")
-rented = count("Rented")
-if not any((for_sale, for_rent, rented)):
-    raise SystemExit("HAR verification failed; refusing to modify index.html")
-
-# Preserve owner-selected marketing count.
+# Keep owner-selected sales count at 55 throughout the site.
 page = re.sub(r'data-count="\d+" data-suffix="">0</b><span>Homes Sold', f'data-count="{FIXED_SOLD}" data-suffix="">0</b><span>Homes Sold', page)
 page = re.sub(r'with \d+ homes sold and a', f'with {FIXED_SOLD} homes sold and a', page)
 page = re.sub(r'(reviews on Zillow · )\d+( homes sold)', rf'\g<1>{FIXED_SOLD}\2', page)
-page = page.replace('Free for buyers · commission paid by seller','Buyer representation fees are negotiable · compensation varies by transaction')
 
-# Extract active property cards from the public HAR profile.
-# Do NOT assume an address starts with a number: land / lot listings can begin with TBD, Lot, etc.
-active = []
-seen = set()
-for a in soup.find_all("a", href=True):
-    label = re.sub(r"\s+", " ", a.get_text(" ", strip=True)).strip()
-    if not label or len(label) > 140:
-        continue
-    container = a
-    matched = False
-    for _ in range(7):
-        if not container.parent:
-            break
-        container = container.parent
-        chunk = re.sub(r"\s+", " ", container.get_text(" ", strip=True))
-        if " Active " in f" {chunk} " and re.search(r"\d+\s+beds?", chunk, re.I) and re.search(r"\d+\s+baths?", chunk, re.I) and re.search(r"[\d,]+\s+sqft", chunk, re.I):
-            matched = True
-            break
-    if not matched:
-        continue
-    chunk = re.sub(r"\s+", " ", container.get_text(" ", strip=True))
-    m_city = re.search(r"([A-Za-z .'-]+),\s*TX\s+(\d{5})", chunk)
-    m_price = re.search(r"(\$[\d.,]+\s*[KkMm]?)", chunk)
-    m_bed = re.search(r"(\d+)\s+beds?", chunk, re.I)
-    m_bath = re.search(r"(\d+)\s+baths?", chunk, re.I)
-    m_sqft = re.search(r"([\d,]+)\s+sqft", chunk, re.I)
-    if not (m_city and m_price and m_bed and m_bath and m_sqft):
-        continue
-
-    # Prefer a label that looks like the property address, but permit non-numbered addresses.
-    bad_labels = {"active", "for sale", "for rent", "view details", "details", "map", "list view", "map view"}
-    if label.lower() in bad_labels or label.startswith("$"):
-        continue
-
-    key = (label.lower(), m_city.group(2))
-    if key in seen:
-        continue
-    seen.add(key)
-    active.append({
-        "address": label,
-        "city": m_city.group(1).strip(),
-        "zip": m_city.group(2),
-        "price": m_price.group(1).replace(" ", ""),
-        "beds": m_bed.group(1),
-        "baths": m_bath.group(1),
-        "sqft": m_sqft.group(1),
-        "url": urljoin(HAR, a["href"]),
-    })
-
-expected = int(for_sale or 0) + int(for_rent or 0)
-if expected and len(active) < expected:
-    raise SystemExit(f"HAR shows {expected} active listings but only {len(active)} were parsed; refusing partial update. Parsed: {[x['address'] for x in active]}")
-active = active[:expected] if expected else active
-
-sale_count = int(for_sale or 0)
-for i, item in enumerate(active):
-    item["type"] = "For Sale" if i < sale_count else "For Rent"
+# Ensure listing-card photo styling exists.
+photo_css = """
+  .har-listing-card{overflow:hidden;padding:0;}
+  .har-listing-photo{width:100%;height:230px;object-fit:cover;display:block;background:#eee;}
+  .har-listing-card .listing-body{padding:24px 26px 28px;}
+  .har-listing-card .listing-price{font-family:'Fraunces',Georgia,serif;font-size:31px;font-weight:600;margin:12px 0 8px;}
+  .har-listing-card .listing-addr{font-weight:700;font-size:17px;line-height:1.35;color:var(--espresso);margin-bottom:14px;}
+  .har-listing-card .listing-meta{display:flex;gap:12px;flex-wrap:wrap;color:var(--ink-soft);font-size:13px;padding-top:14px;border-top:1px solid var(--line);}
+  @media(max-width:700px){.har-listing-photo{height:210px;}}
+"""
+if ".har-listing-photo" not in page:
+    page = page.replace("</style>", photo_css + "\n</style>", 1)
 
 cards = []
-for item in active:
-    rental = item["type"] == "For Rent"
-    price = htmlmod.escape(item["price"]) + (" / mo" if rental else "")
-    cards.append(f'''<article class="listing-card reveal har-listing-card">
-  <div class="listing-body">
-    <span class="listing-tag" style="position:static;display:inline-block;margin-bottom:12px;">{htmlmod.escape(item['type'])}</span>
-    <div class="listing-price">{price}</div>
-    <div class="listing-addr">{htmlmod.escape(item['address'])}, {htmlmod.escape(item['city'])}, TX {item['zip']}</div>
-    <div class="listing-meta"><span>🛏 {item['beds']} beds</span><span>🛁 {item['baths']} baths</span><span>📐 {item['sqft']} sqft</span></div>
-    <a href="{htmlmod.escape(item['url'], quote=True)}" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" style="margin-top:18px;padding:11px 18px;font-size:13px;">View on HAR →</a>
-  </div>
-</article>''')
+for item in LISTINGS:
+    cards.append(f"""
+      <article class="listing-card reveal har-listing-card">
+        <img class="har-listing-photo" src="{html.escape(item['image'], quote=True)}" alt="{html.escape(item['address'])}, {html.escape(item['city'])}, {item['state']} {item['zip']}" loading="lazy">
+        <div class="listing-body">
+          <span class="listing-tag" style="position:static;display:inline-block;margin-bottom:10px;">{html.escape(item['type'])}</span>
+          <div class="listing-price">{html.escape(item['price'])}</div>
+          <div class="listing-addr">{html.escape(item['address'])}<br>{html.escape(item['city'])}, {item['state']} {item['zip']}</div>
+          <div class="listing-meta">
+            <span>🛏 {item['beds']} beds</span>
+            <span>🛁 {html.escape(item['baths'])}</span>
+            <span>📐 {item['sqft']} sqft</span>
+          </div>
+          <a href="{html.escape(item['url'], quote=True)}" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" style="margin-top:18px;padding:11px 18px;font-size:13px;">View on HAR →</a>
+        </div>
+      </article>
+    """)
 
-listing_section = f'''<!-- HAR_LISTINGS_START -->
+listing_section = f"""<!-- HAR_LISTINGS_START -->
 <section class="listings" id="listings">
   <div class="wrap">
     <div class="section-head center reveal">
       <span class="eyebrow" style="justify-content:center;">My Active Listings</span>
-      <h2>Current homes for sale &amp; rent</h2>
-      <p>Live inventory from Kerem Gorgulu's public HAR profile. Click any property for the latest listing details.</p>
+      <h2>3 homes for sale · 3 homes for rent</h2>
+      <p>Current active inventory verified by Kerem Gorgulu. Click a property for listing details.</p>
     </div>
     <div class="listing-grid">{''.join(cards)}</div>
-    <div class="listings-foot"><a href="{HAR}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">View All My HAR Listings →</a></div>
+    <div class="listings-foot"><a href="{HAR_PROFILE}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">View My HAR Profile →</a></div>
   </div>
 </section>
-<!-- HAR_LISTINGS_END -->'''
+<!-- HAR_LISTINGS_END -->"""
 
 managed = re.compile(r'<!-- HAR_LISTINGS_START -->.*?<!-- HAR_LISTINGS_END -->', re.S)
 if managed.search(page):
@@ -134,21 +149,20 @@ if managed.search(page):
 else:
     anchor = '<!-- ================= PROBLEM / SOLUTION ================= -->'
     if anchor not in page:
-        raise SystemExit('Expected insertion anchor not found; refusing to modify index.html')
-    page = page.replace(anchor, listing_section + '\n\n' + anchor, 1)
+        raise SystemExit("Listings insertion anchor not found")
+    page = page.replace(anchor, listing_section + "\n\n" + anchor, 1)
 
-# Once the local listings section exists, all Listings buttons should scroll to it.
-page = re.sub(r'href="https://www\.har\.com/kerem-gorgulu/agent_ntreis-0717217"\s+target="_blank"\s+rel="noopener noreferrer"(?=[^>]*>Listings<)', 'href="#listings"', page)
-page = re.sub(r'href="https://www\.har\.com/kerem-gorgulu/agent_ntreis-0717217"\s+target="_blank"\s+rel="noopener noreferrer"(?=[^>]*>See Current Listings<)', 'href="#listings"', page)
-
-status = f'''<!-- HAR_STATUS_START -->
-<div class="wrap" style="padding-top:22px;padding-bottom:22px;text-align:center;font-size:14px;color:var(--ink-soft);">
-  Current HAR activity: <strong>{for_sale or '—'} for sale</strong> · <strong>{for_rent or '—'} for rent</strong> · <strong>{rented or '—'} rented records</strong> · <a href="{HAR}" target="_blank" rel="noopener" style="color:var(--terracotta);font-weight:700;">View HAR profile →</a>
-</div>
-<!-- HAR_STATUS_END -->'''
-status_managed = re.compile(r'<!-- HAR_STATUS_START -->.*?<!-- HAR_STATUS_END -->', re.S)
-if status_managed.search(page):
-    page = status_managed.sub(status, page)
+# Keep site navigation/hero listing links on-page.
+page = re.sub(
+    r'href="https://www\.har\.com/kerem-gorgulu/agent_ntreis-0717217"\s+target="_blank"\s+rel="noopener noreferrer"(?=[^>]*>Listings<)',
+    'href="#listings"',
+    page,
+)
+page = re.sub(
+    r'href="https://www\.har\.com/kerem-gorgulu/agent_ntreis-0717217"\s+target="_blank"\s+rel="noopener noreferrer"(?=[^>]*>See Current Listings<)',
+    'href="#listings"',
+    page,
+)
 
 INDEX.write_text(page, encoding="utf-8")
-print(f"Updated {len(active)} active HAR listings; for_sale={for_sale}, for_rent={for_rent}, rented={rented}; fixed headline sold={FIXED_SOLD}")
+print("Published owner-verified inventory: 3 for sale, 3 for rent; headline sales count fixed at 55.")
