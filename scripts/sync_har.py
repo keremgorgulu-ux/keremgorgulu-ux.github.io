@@ -30,6 +30,10 @@ html = re.sub(r'with \d+ homes sold and a', f'with {FIXED_SOLD} homes sold and a
 html = re.sub(r'(reviews on Zillow · )\d+( homes sold)', rf'\g<1>{FIXED_SOLD}\2', html)
 html = html.replace('Free for buyers · commission paid by seller','Buyer representation fees are negotiable · compensation varies by transaction')
 
+# The site does not currently contain a #listings section, so internal My Listings / Listings links were dead.
+# Point every #listings link directly to Kerem's verified public HAR inventory instead.
+html = html.replace('href="#listings"', f'href="{HAR}" target="_blank" rel="noopener noreferrer"')
+
 strip = f'''<!-- HAR_STATUS_START -->
 <div class="wrap" style="padding-top:22px;padding-bottom:22px;text-align:center;font-size:14px;color:var(--ink-soft);">
   Current HAR activity: <strong>{for_sale or '—'} for sale</strong> · <strong>{for_rent or '—'} for rent</strong> · <strong>{rented or '—'} rented records</strong> · <a href="{HAR}" target="_blank" rel="noopener" style="color:var(--terracotta);font-weight:700;">View HAR profile →</a>
@@ -45,4 +49,4 @@ else:
     html = html.replace(anchor, strip + '\n\n' + anchor, 1)
 
 INDEX.write_text(html, encoding="utf-8")
-print(f"Verified HAR: for_sale={for_sale}, for_rent={for_rent}, rented={rented}; fixed headline sold={FIXED_SOLD}")
+print(f"Verified HAR: for_sale={for_sale}, for_rent={for_rent}, rented={rented}; fixed headline sold={FIXED_SOLD}; listings links={HAR}")
