@@ -2,6 +2,10 @@ name: KG Realty HAR Sync
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/sync_har.py'
+      - '.github/workflows/kg-realty-sync.yml'
   schedule:
     - cron: '0 14 * * 1'
 
