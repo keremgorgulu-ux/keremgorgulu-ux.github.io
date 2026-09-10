@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - 'scripts/sync_har.py'
+      - 'scripts/fix_listing_photo_urls.py'
       - '.github/workflows/kg-realty-sync.yml'
   schedule:
     - cron: '0 14 * * 1'
@@ -24,6 +25,8 @@ jobs:
           python-version: '3.12'
       - name: Sync verified active listings
         run: python scripts/sync_har.py
+      - name: Enforce reliable local listing photos
+        run: python scripts/fix_listing_photo_urls.py
       - name: Commit only if changed
         run: |
           if git diff --quiet; then
