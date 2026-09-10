@@ -17,6 +17,13 @@ text = re.sub(r"\s+", " ", soup.get_text(" ", strip=True))
 page = INDEX.read_text(encoding="utf-8")
 
 def count(label):
+    # Prefer the agent-profile summary links, e.g. "3 For Sale" / "3 For Rent".
+    for a in soup.find_all("a"):
+        t = re.sub(r"\s+", " ", a.get_text(" ", strip=True)).strip()
+        m = re.fullmatch(rf"(\d+)\s+{re.escape(label)}", t, re.I)
+        if m:
+            return m.group(1)
+    # Fallback for HAR markup changes.
     for pat in (rf"(\d+)\s+{label}\b", rf"{label}\s+(\d+)\b"):
         m = re.search(pat, text, re.I)
         if m:
@@ -36,21 +43,24 @@ page = re.sub(r'(reviews on Zillow · )\d+( homes sold)', rf'\g<1>{FIXED_SOLD}\2
 page = page.replace('Free for buyers · commission paid by seller','Buyer representation fees are negotiable · compensation varies by transaction')
 
 # Extract active property cards from the public HAR profile.
+# Do NOT assume an address starts with a number: land / lot listings can begin with TBD, Lot, etc.
 active = []
 seen = set()
 for a in soup.find_all("a", href=True):
-    label = re.sub(r"\s+", " ", a.get_text(" ", strip=True))
-    if not re.match(r"^\d{1,6}\s+", label):
+    label = re.sub(r"\s+", " ", a.get_text(" ", strip=True)).strip()
+    if not label or len(label) > 140:
         continue
     container = a
-    for _ in range(6):
+    matched = False
+    for _ in range(7):
         if not container.parent:
             break
         container = container.parent
         chunk = re.sub(r"\s+", " ", container.get_text(" ", strip=True))
-        if " Active " in f" {chunk} " and re.search(r"\d+\s+beds?", chunk, re.I) and re.search(r"\d+\s+baths?", chunk, re.I):
+        if " Active " in f" {chunk} " and re.search(r"\d+\s+beds?", chunk, re.I) and re.search(r"\d+\s+baths?", chunk, re.I) and re.search(r"[\d,]+\s+sqft", chunk, re.I):
+            matched = True
             break
-    else:
+    if not matched:
         continue
     chunk = re.sub(r"\s+", " ", container.get_text(" ", strip=True))
     m_city = re.search(r"([A-Za-z .'-]+),\s*TX\s+(\d{5})", chunk)
@@ -60,6 +70,12 @@ for a in soup.find_all("a", href=True):
     m_sqft = re.search(r"([\d,]+)\s+sqft", chunk, re.I)
     if not (m_city and m_price and m_bed and m_bath and m_sqft):
         continue
+
+    # Prefer a label that looks like the property address, but permit non-numbered addresses.
+    bad_labels = {"active", "for sale", "for rent", "view details", "details", "map", "list view", "map view"}
+    if label.lower() in bad_labels or label.startswith("$"):
+        continue
+
     key = (label.lower(), m_city.group(2))
     if key in seen:
         continue
@@ -77,7 +93,7 @@ for a in soup.find_all("a", href=True):
 
 expected = int(for_sale or 0) + int(for_rent or 0)
 if expected and len(active) < expected:
-    raise SystemExit(f"HAR shows {expected} active listings but only {len(active)} were parsed; refusing partial update")
+    raise SystemExit(f"HAR shows {expected} active listings but only {len(active)} were parsed; refusing partial update. Parsed: {[x['address'] for x in active]}")
 active = active[:expected] if expected else active
 
 sale_count = int(for_sale or 0)
