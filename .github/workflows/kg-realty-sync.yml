@@ -1,11 +1,10 @@
-name: KG Realty HAR Sync
+name: KG Realty Listing Sync
 
 on:
   workflow_dispatch:
   push:
     paths:
       - 'scripts/sync_har.py'
-      - 'scripts/fix_listing_photo_urls.py'
       - '.github/workflows/kg-realty-sync.yml'
   schedule:
     - cron: '0 14 * * 1'
@@ -23,12 +22,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install dependencies
-        run: pip install requests beautifulsoup4
-      - name: Sync verified listing set
+      - name: Sync verified active listings
         run: python scripts/sync_har.py
-      - name: Verify exact listing photo URLs
-        run: python scripts/fix_listing_photo_urls.py
       - name: Commit only if changed
         run: |
           if git diff --quiet; then
@@ -38,5 +33,5 @@ jobs:
           git config user.name "KG Realty Sync"
           git config user.email "actions@users.noreply.github.com"
           git add index.html
-          git commit -m "Sync KG Realty verified active listings"
+          git commit -m "Sync KG Realty active listings"
           git push
