@@ -5,17 +5,27 @@ import re
 INDEX = Path("index.html")
 page = INDEX.read_text(encoding="utf-8")
 
-# Use the repository-hosted image for both 2507 Gentle Knoll cards.
-# Version the URL so browsers/CDNs cannot reuse a previously cached broken image.
-local_photo = "assets/listings/2507-gentle-knoll-dr.jpg?v=20260910-2"
-pattern = re.compile(
-    r'(<img\s+class="har-listing-photo"\s+src=")[^"]*("\s+alt="2507 Gentle Knoll Dr, Melissa, TX 75454"[^>]*>)',
-    re.IGNORECASE,
-)
-page, count = pattern.subn(r'\1' + local_photo + r'\2', page)
+replacements = [
+    (
+        "2507 Gentle Knoll Dr, Melissa, TX 75454",
+        "assets/listings/2507-gentle-knoll-dr.jpg?v=20260910-2",
+    ),
+    (
+        "10492 US Highway 69, Whitewright, TX 75491",
+        "assets/listings/10492-us-highway-69.jpg?v=20260910-1",
+    ),
+]
 
-if count == 0:
-    raise SystemExit("2507 Gentle Knoll listing image tags were not found; refusing an unverified patch")
+updated = 0
+for alt_text, local_photo in replacements:
+    pattern = re.compile(
+        rf'(<img\s+class="har-listing-photo"\s+src=")[^"]*("\s+alt="{re.escape(alt_text)}"[^>]*>)',
+        re.IGNORECASE,
+    )
+    page, count = pattern.subn(r'\1' + local_photo + r'\2', page)
+    if count == 0:
+        raise SystemExit(f"Listing image tag not found for {alt_text}; refusing an unverified patch")
+    updated += count
 
 INDEX.write_text(page, encoding="utf-8")
-print(f"Set {count} Gentle Knoll listing card image(s) to {local_photo}")
+print(f"Updated {updated} listing card image(s) to reliable repository-hosted photos")
