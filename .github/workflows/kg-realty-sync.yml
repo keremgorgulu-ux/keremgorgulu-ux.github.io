@@ -6,6 +6,7 @@ on:
     paths:
       - 'scripts/sync_har.py'
       - 'scripts/fix_listing_photo_urls.py'
+      - 'scripts/add_review_ctas.py'
       - '.github/workflows/kg-realty-sync.yml'
   schedule:
     - cron: '0 14 * * 1'
@@ -27,6 +28,8 @@ jobs:
         run: python scripts/sync_har.py
       - name: Enforce reliable local listing photos
         run: python scripts/fix_listing_photo_urls.py
+      - name: Add Google and Zillow review buttons
+        run: python scripts/add_review_ctas.py
       - name: Commit only if changed
         run: |
           if git diff --quiet; then
@@ -36,5 +39,5 @@ jobs:
           git config user.name "KG Realty Sync"
           git config user.email "actions@users.noreply.github.com"
           git add index.html
-          git commit -m "Sync KG Realty active listings"
+          git commit -m "Sync KG Realty website content"
           git push
