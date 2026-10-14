@@ -34,26 +34,133 @@
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 28px;font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;border:1px solid transparent;cursor:pointer;transition:background .25s,color .25s,border-color .25s;white-space:nowrap;font-family:inherit}
     .btn-outline{background:transparent;color:var(--white);border-color:rgba(255,255,255,.55)}
     .btn-outline:hover{background:var(--white);color:var(--black)}
-    .btn-solid{background:var(--white);color:var(--black);border-color:var(--white)}
-    .btn-solid:hover{background:transparent;color:var(--white)}
+    header{position:fixed;top:0;left:0;right:0;z-index:1000;padding:22px 0;background:rgba(10,10,10,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    header .wrap{display:flex;align-items:center;justify-content:space-between}
+    .logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;letter-spacing:.08em;color:var(--white)}
+    .logo span{font-size:13px;font-weight:400;letter-spacing:.18em;opacity:.7;text-transform:uppercase;font-family:Inter,sans-serif}
+    .listings{background:var(--black-soft);padding:120px 0 80px}
+    .section-head{text-align:center;max-width:720px;margin:0 auto 64px}
+    .section-head h2{font-size:clamp(32px,4.5vw,48px);color:var(--white);margin-bottom:18px}
+    .section-head p{color:var(--muted);font-size:15.5px;font-weight:300}
+    .listing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
+    .listing-card{background:var(--charcoal);overflow:hidden;transition:transform .35s;display:block}
+    .listing-card:hover{transform:translateY(-6px)}
+    .listing-photo{aspect-ratio:4/3;overflow:hidden;position:relative;background:#222}
+    .listing-photo img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+    .listing-card:hover .listing-photo img{transform:scale(1.05)}
+    .listing-tag{position:absolute;top:14px;left:14px;background:var(--black);color:var(--white);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:7px 12px}
+    .listing-body{padding:22px 22px 26px}
+    .listing-price{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);margin-bottom:6px}
+    .listing-addr{font-size:13.5px;color:var(--muted);margin-bottom:14px;line-height:1.4}
+    .listing-meta{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--faint);border-top:1px solid var(--line);padding-top:14px;margin-bottom:18px}
+    .listings-foot{text-align:center;margin-top:48px}
+    footer{padding:40px;text-align:center;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
   </style>
 </head>
 <body>
-  <header><div class="wrap"><div class="logo">KG <span>Realty</span></div></div></header>
-  <section class="listings" id="listings" style="padding:100px 0;background:#111">
+  <header>
     <div class="wrap">
-      <div style="text-align:center;margin-bottom:48px"><h2 style="color:#fff;font-size:42px">Active Listings</h2><p style="color:rgba(232,228,223,.62)">1 home for sale · 5 homes for rent — current inventory verified by Kerem Gorgulu.</p></div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px">
-        <article style="background:#1a1a1a;overflow:hidden"><div style="aspect-ratio:4/3;background:#222"><img src="https://photos.zillowstatic.com/fp/7a347cbd962c5025f1a35ed458f7e453-cc_ft_960.jpg" alt="5716 Kate Ave" style="width:100%;height:100%;object-fit:cover"></div><div style="padding:22px"><div style="font-family:Georgia,serif;font-size:26px;color:#fff">$509,000</div><div style="color:rgba(232,228,223,.62);margin:6px 0 14px">5716 Kate Ave<br>Plano, TX 75024</div><div style="font-size:12px;color:rgba(232,228,223,.38)">3 beds · 3 full + 1 half · 2,065 sqft</div><div style="margin-top:12px;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#c9a96e">For Sale</div></div></article>
-        <article style="background:#1a1a1a;overflow:hidden"><div style="aspect-ratio:4/3;background:#222"><img src="assets/listings/2507-gentle-knoll-dr.jpg" alt="2507 Gentle Knoll" style="width:100%;height:100%;object-fit:cover"></div><div style="padding:22px"><div style="font-family:Georgia,serif;font-size:26px;color:#fff">$3,250 / mo</div><div style="color:rgba(232,228,223,.62);margin:6px 0 14px">2507 Gentle Knoll Dr<br>Melissa, TX 75454</div><div style="font-size:12px;color:rgba(232,228,223,.38)">4 beds · 3 full + 1 half · 3,135 sqft</div><div style="margin-top:12px;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#c9a96e">For Rent</div></div></article>
-        <article style="background:#1a1a1a;overflow:hidden"><div style="aspect-ratio:4/3;background:#222"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80" alt="2500 Sierra" style="width:100%;height:100%;object-fit:cover"></div><div style="padding:22px"><div style="font-family:Georgia,serif;font-size:26px;color:#fff">$3,300 / mo</div><div style="color:rgba(232,228,223,.62);margin:6px 0 14px">2500 Sierra Dr<br>McKinney, TX 75071</div><div style="font-size:12px;color:rgba(232,228,223,.38)">5 beds · 2 full + 1 half · 2,662 sqft</div><div style="margin-top:12px;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#c9a96e">For Rent</div></div></article>
-        <article style="background:#1a1a1a;overflow:hidden"><div style="aspect-ratio:4/3;background:#222"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="1017 Hoyt" style="width:100%;height:100%;object-fit:cover"></div><div style="padding:22px"><div style="font-family:Georgia,serif;font-size:26px;color:#fff">$3,250 / mo</div><div style="color:rgba(232,228,223,.62);margin:6px 0 14px">1017 Hoyt Dr<br>McKinney, TX 75071</div><div style="font-size:12px;color:rgba(232,228,223,.38)">4 beds · 3 full + 1 half · 3,030 sqft</div><div style="margin-top:12px;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#c9a96e">For Rent</div></div></article>
-        <article style="background:#1a1a1a;overflow:hidden"><div style="aspect-ratio:4/3;background:#222"><img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=800&q=80" alt="5408 Devils River" style="width:100%;height:100%;object-fit:cover"></div><div style="padding:22px"><div style="font-family:Georgia,serif;font-size:26px;color:#fff">$2,200 / mo</div><div style="color:rgba(232,228,223,.62);margin:6px 0 14px">5408 Devils River Dr<br>McKinney, TX 75071</div><div style="font-size:12px;color:rgba(232,228,223,.38)">3 beds · 2 full · 1,687 sqft</div><div style="margin-top:12px;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#c9a96e">For Rent</div></div></article>
-        <article style="background:#1a1a1a;overflow:hidden"><div style="aspect-ratio:4/3;background:#222"><img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80" alt="11379 Lockshire" style="width:100%;height:100%;object-fit:cover"></div><div style="padding:22px"><div style="font-family:Georgia,serif;font-size:26px;color:#fff">$2,995 / mo</div><div style="color:rgba(232,228,223,.62);margin:6px 0 14px">11379 Lockshire Dr<br>Frisco, TX 75035</div><div style="font-size:12px;color:rgba(232,228,223,.38)">4 beds · 2 full + 1 half · 2,795 sqft</div><div style="margin-top:12px;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#c9a96e">For Rent</div></div></article>
+      <div class="logo">KG <span>Realty</span></div>
+      <a href="tel:+14693388141" style="color:#fff;font-size:13px">(469) 338-8141</a>
+    </div>
+  </header>
+
+  <section class="listings" id="listings">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Active Listings</h2>
+        <p>1 home for sale · 5 homes for rent — current inventory verified by Kerem Gorgulu.</p>
       </div>
-      <div style="text-align:center;margin-top:48px"><a href="https://www.har.com/kerem-gorgulu/agent_ntreis-0717217" target="_blank" style="display:inline-block;padding:16px 28px;border:1px solid rgba(255,255,255,.55);color:#fff;font-size:12px;letter-spacing:.14em;text-transform:uppercase">View My HAR Profile</a></div>
+      <div class="listing-grid">
+
+        <a href="https://www.har.com/homedetail/5716-kate-ave-plano-tx-75024/1152890" target="_blank" rel="noopener noreferrer" class="listing-card">
+          <div class="listing-photo">
+            <img src="https://photos.zillowstatic.com/fp/7a347cbd962c5025f1a35ed458f7e453-cc_ft_960.jpg" alt="5716 Kate Ave, Plano, TX 75024" loading="lazy">
+            <span class="listing-tag">For Sale</span>
+          </div>
+          <div class="listing-body">
+            <div class="listing-price">$509,000</div>
+            <div class="listing-addr">5716 Kate Ave<br>Plano, TX 75024</div>
+            <div class="listing-meta"><span>3 beds</span><span>3 full + 1 half</span><span>2,065 sqft</span></div>
+            <span class="btn btn-outline" style="padding:11px 16px;font-size:11px">View on HAR</span>
+          </div>
+        </a>
+
+        <a href="https://www.har.com/homedetail/2507-gentle-knoll-dr-melissa-tx-75454/16722866" target="_blank" rel="noopener noreferrer" class="listing-card">
+          <div class="listing-photo">
+            <img src="assets/listings/2507-gentle-knoll-dr.jpg" alt="2507 Gentle Knoll Dr, Melissa, TX 75454" loading="lazy">
+            <span class="listing-tag">For Rent</span>
+          </div>
+          <div class="listing-body">
+            <div class="listing-price">$3,250 / mo</div>
+            <div class="listing-addr">2507 Gentle Knoll Dr<br>Melissa, TX 75454</div>
+            <div class="listing-meta"><span>4 beds</span><span>3 full + 1 half</span><span>3,135 sqft</span></div>
+            <span class="btn btn-outline" style="padding:11px 16px;font-size:11px">View on HAR</span>
+          </div>
+        </a>
+
+        <a href="https://www.har.com/kerem-gorgulu/agent_ntreis-0717217" target="_blank" rel="noopener noreferrer" class="listing-card">
+          <div class="listing-photo">
+            <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80" alt="2500 Sierra Dr, McKinney, TX 75071" loading="lazy">
+            <span class="listing-tag">For Rent</span>
+          </div>
+          <div class="listing-body">
+            <div class="listing-price">$3,300 / mo</div>
+            <div class="listing-addr">2500 Sierra Dr<br>McKinney, TX 75071</div>
+            <div class="listing-meta"><span>5 beds</span><span>2 full + 1 half</span><span>2,662 sqft</span></div>
+            <span class="btn btn-outline" style="padding:11px 16px;font-size:11px">View on HAR</span>
+          </div>
+        </a>
+
+        <a href="https://www.har.com/kerem-gorgulu/agent_ntreis-0717217" target="_blank" rel="noopener noreferrer" class="listing-card">
+          <div class="listing-photo">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="1017 Hoyt Dr, McKinney, TX 75071" loading="lazy">
+            <span class="listing-tag">For Rent</span>
+          </div>
+          <div class="listing-body">
+            <div class="listing-price">$3,250 / mo</div>
+            <div class="listing-addr">1017 Hoyt Dr<br>McKinney, TX 75071</div>
+            <div class="listing-meta"><span>4 beds</span><span>3 full + 1 half</span><span>3,030 sqft</span></div>
+            <span class="btn btn-outline" style="padding:11px 16px;font-size:11px">View on HAR</span>
+          </div>
+        </a>
+
+        <a href="https://www.har.com/kerem-gorgulu/agent_ntreis-0717217" target="_blank" rel="noopener noreferrer" class="listing-card">
+          <div class="listing-photo">
+            <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=800&q=80" alt="5408 Devils River Dr, McKinney, TX 75071" loading="lazy">
+            <span class="listing-tag">For Rent</span>
+          </div>
+          <div class="listing-body">
+            <div class="listing-price">$2,200 / mo</div>
+            <div class="listing-addr">5408 Devils River Dr<br>McKinney, TX 75071</div>
+            <div class="listing-meta"><span>3 beds</span><span>2 full</span><span>1,687 sqft</span></div>
+            <span class="btn btn-outline" style="padding:11px 16px;font-size:11px">View on HAR</span>
+          </div>
+        </a>
+
+        <a href="https://www.har.com/kerem-gorgulu/agent_ntreis-0717217" target="_blank" rel="noopener noreferrer" class="listing-card">
+          <div class="listing-photo">
+            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80" alt="11379 Lockshire Dr, Frisco, TX 75035" loading="lazy">
+            <span class="listing-tag">For Rent</span>
+          </div>
+          <div class="listing-body">
+            <div class="listing-price">$2,995 / mo</div>
+            <div class="listing-addr">11379 Lockshire Dr<br>Frisco, TX 75035</div>
+            <div class="listing-meta"><span>4 beds</span><span>2 full + 1 half</span><span>2,795 sqft</span></div>
+            <span class="btn btn-outline" style="padding:11px 16px;font-size:11px">View on HAR</span>
+          </div>
+        </a>
+
+      </div>
+      <div class="listings-foot">
+        <a href="https://www.har.com/kerem-gorgulu/agent_ntreis-0717217" target="_blank" rel="noopener noreferrer" class="btn btn-outline">View My HAR Profile</a>
+      </div>
     </div>
   </section>
-  <div style="padding:40px;text-align:center;color:rgba(232,228,223,.62);font-size:14px">Full site design will be restored shortly. Listings above are current as of Oct 14, 2026.</div>
+
+  <footer>
+    KG Realty · Kerem Gorgulu · (469) 338-8141 · keremgorgulu@gmail.com<br>
+    Serving Frisco, Plano, Allen, McKinney, Murphy, Wylie &amp; Dallas
+  </footer>
 </body>
 </html>
