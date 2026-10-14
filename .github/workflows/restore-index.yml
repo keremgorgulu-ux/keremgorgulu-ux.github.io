@@ -1,0 +1,18 @@
+name: Restore Index
+on:
+  workflow_dispatch:
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Restore index.html from good commit
+        run: |
+          git checkout 8e63c08c6e5b51c3eb5d7b98e942ce3bc7821cf2 -- index.html
+          git config user.name "keremgorgulu-ux"
+          git config user.email "keremgorgulu@gmail.com"
+          git add index.html
+          git commit -m "Restore full original website from Oct 5 commit"
+          git push
