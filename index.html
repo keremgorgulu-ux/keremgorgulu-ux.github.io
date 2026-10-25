@@ -43,8 +43,8 @@
       return html;
     }
     Promise.all([
-      fetch('index.html.restored?v=listings1', { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('restore'); return r.text(); }),
-      fetch('listings-data.json?v=listings1', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+      fetch('index.html.restored?v=listings2', { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('restore'); return r.text(); }),
+      fetch('listings-data.json?v=listings2', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
     ]).then(function (results) {
       var html = rename(results[0]);
       html = applyListings(html, results[1]);
