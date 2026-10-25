@@ -1,6 +1,6 @@
 {
-  "sale": 1,
-  "rent": 7,
+  "sale": 2,
+  "rent": 8,
   "items": [
     {
       "tag": "For Sale",
@@ -12,13 +12,31 @@
       "img": "https://photos.zillowstatic.com/fp/7a347cbd962c5025f1a35ed458f7e453-cc_ft_960.jpg"
     },
     {
+      "tag": "For Sale",
+      "price": "$529,000",
+      "addr": "4517 Munger Ave #103",
+      "city": "Dallas, TX 75204",
+      "meta": ["2 beds", "2 full + 1 half", "1,901 sqft"],
+      "href": "https://www.har.com/NTREIS-0717217/listings_for_sale_by_kerem-gorgulu",
+      "img": "https://listing-images.homejunction.com/ntreis/1193816165/photo_1.jpg"
+    },
+    {
       "tag": "For Rent",
-      "price": "$3,250 / mo",
-      "addr": "2507 Gentle Knoll Dr",
-      "city": "Melissa, TX 75454",
-      "meta": ["4 beds", "3 full + 1 half", "3,135 sqft"],
+      "price": "$2,600 / mo",
+      "addr": "1207 Fox Trail Dr",
+      "city": "Allen, TX 75002",
+      "meta": ["4 beds", "2 full", "1,990 sqft"],
+      "href": "https://www.renthop.com/managers/kerem-gorgulu",
+      "img": "https://i.rent.com/t_3x2_fixed_webp_md/b3c247c10e04de9ba2d70d915d8c6969"
+    },
+    {
+      "tag": "For Rent",
+      "price": "$1,950 / mo",
+      "addr": "10492 US Highway 69",
+      "city": "Whitewright, TX 75491",
+      "meta": ["3 beds", "2 full", "2,127 sqft"],
       "href": "https://www.zillow.com/profile/keremgorgulu",
-      "img": "assets/listings/2507-gentle-knoll-dr.jpg?v=20261025"
+      "img": "https://photos.zillowstatic.com/fp/e82664788136588d066a10a2a37057b7-cc_ft_960.jpg"
     },
     {
       "tag": "For Rent",
@@ -31,12 +49,12 @@
     },
     {
       "tag": "For Rent",
-      "price": "$1,950 / mo",
-      "addr": "10492 US Highway 69",
-      "city": "Whitewright, TX 75491",
-      "meta": ["3 beds", "2 full", "2,127 sqft"],
-      "href": "https://www.zillow.com/profile/keremgorgulu",
-      "img": "assets/listings/10492-us-highway-69.jpg"
+      "price": "$3,000 / mo",
+      "addr": "2507 Gentle Knoll Dr",
+      "city": "Melissa, TX 75454",
+      "meta": ["4 beds", "3 full + 1 half", "3,135 sqft"],
+      "href": "https://www.renthop.com/managers/kerem-gorgulu",
+      "img": "https://photos.zillowstatic.com/fp/e82664788136588d066a10a2a37057b7-cc_ft_960.jpg"
     },
     {
       "tag": "For Rent",
@@ -51,7 +69,7 @@
       "tag": "For Rent",
       "price": "$3,250 / mo",
       "addr": "1017 Hoyt Dr",
-      "city": "McKinney, TX 75071",
+      "city": "Anna, TX 75071",
       "meta": ["4 beds", "3 full", "3,030 sqft"],
       "href": "https://www.har.com/kerem-gorgulu/agent_ntreis-0717217",
       "img": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
