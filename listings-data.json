@@ -1,0 +1,78 @@
+{
+  "sale": 1,
+  "rent": 7,
+  "items": [
+    {
+      "tag": "For Sale",
+      "price": "$509,000",
+      "addr": "5716 Kate Ave",
+      "city": "Plano, TX 75024",
+      "meta": ["3 beds", "3 full + 1 half", "2,065 sqft"],
+      "href": "https://www.har.com/homedetail/5716-kate-ave-plano-tx-75024/1152890",
+      "img": "https://photos.zillowstatic.com/fp/7a347cbd962c5025f1a35ed458f7e453-cc_ft_960.jpg"
+    },
+    {
+      "tag": "For Rent",
+      "price": "$3,250 / mo",
+      "addr": "2507 Gentle Knoll Dr",
+      "city": "Melissa, TX 75454",
+      "meta": ["4 beds", "3 full + 1 half", "3,135 sqft"],
+      "href": "https://www.zillow.com/profile/keremgorgulu",
+      "img": "assets/listings/2507-gentle-knoll-dr.jpg?v=20261025"
+    },
+    {
+      "tag": "For Rent",
+      "price": "$2,700 / mo",
+      "addr": "1613 Hightimber Ln",
+      "city": "Wylie, TX 75098",
+      "meta": ["4 beds", "3 full", "2,772 sqft"],
+      "href": "https://www.zillow.com/profile/keremgorgulu",
+      "img": "https://photos.zillowstatic.com/fp/8c534d47715c1c9bd4f6a61f805be8a5-cc_ft_960.jpg"
+    },
+    {
+      "tag": "For Rent",
+      "price": "$1,950 / mo",
+      "addr": "10492 US Highway 69",
+      "city": "Whitewright, TX 75491",
+      "meta": ["3 beds", "2 full", "2,127 sqft"],
+      "href": "https://www.zillow.com/profile/keremgorgulu",
+      "img": "assets/listings/10492-us-highway-69.jpg"
+    },
+    {
+      "tag": "For Rent",
+      "price": "$3,300 / mo",
+      "addr": "2500 Sierra Dr",
+      "city": "McKinney, TX 75071",
+      "meta": ["5 beds", "2 full", "2,662 sqft"],
+      "href": "https://www.har.com/kerem-gorgulu/agent_ntreis-0717217",
+      "img": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "tag": "For Rent",
+      "price": "$3,250 / mo",
+      "addr": "1017 Hoyt Dr",
+      "city": "McKinney, TX 75071",
+      "meta": ["4 beds", "3 full", "3,030 sqft"],
+      "href": "https://www.har.com/kerem-gorgulu/agent_ntreis-0717217",
+      "img": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "tag": "For Rent",
+      "price": "$2,200 / mo",
+      "addr": "5408 Devils River Dr",
+      "city": "McKinney, TX 75071",
+      "meta": ["3 beds", "2 full", "1,687 sqft"],
+      "href": "https://www.har.com/kerem-gorgulu/agent_ntreis-0717217",
+      "img": "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "tag": "For Rent",
+      "price": "$2,995 / mo",
+      "addr": "11379 Lockshire Dr",
+      "city": "McKinney, TX 75035",
+      "meta": ["4 beds", "2 full", "2,795 sqft"],
+      "href": "https://www.har.com/kerem-gorgulu/agent_ntreis-0717217",
+      "img": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80"
+    }
+  ]
+}

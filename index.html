@@ -30,20 +30,30 @@
       html = html.replace(/verified by Kerem/g, 'verified by Mark');
       return html;
     }
-    fetch('index.html.restored?v=mark3', { cache: 'no-store' })
-      .then(function (r) {
-        if (!r.ok) throw new Error('restore missing');
-        return r.text();
-      })
-      .then(function (html) {
-        html = rename(html);
-        document.open();
-        document.write(html);
-        document.close();
-      })
-      .catch(function () {
-        document.body.innerHTML = '<div style="text-align:center;padding:40px"><h1 style="font-weight:300;letter-spacing:.06em;font-size:48px">MARK K GORGULU</h1><p>KG Realty · REB365</p><p><a style="color:#c9a96e" href="tel:+14693388141">(469) 338-8141</a></p></div>';
-      });
+    function card(item) {
+      var meta = (item.meta || []).map(function (m) { return '<span>' + m + '</span>'; }).join('');
+      return '<article class="listing-card"><div class="listing-photo"><img src="' + item.img + '" alt="' + item.addr + ', ' + item.city + '" loading="lazy"><span class="listing-tag">' + item.tag + '</span></div><div class="listing-body"><div class="listing-price">' + item.price + '</div><div class="listing-addr">' + item.addr + '<br>' + item.city + '</div><div class="listing-meta">' + meta + '</div><a href="' + item.href + '" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="padding:11px 16px;font-size:11px">View listing</a></div></article>';
+    }
+    function applyListings(html, data) {
+      if (!data || !data.items || !data.items.length) return html;
+      var grid = data.items.map(card).join('');
+      var head = '<div class="section-head"><h2>Active Listings</h2><p>' + data.sale + ' home' + (data.sale === 1 ? '' : 's') + ' for sale · ' + data.rent + ' home' + (data.rent === 1 ? '' : 's') + ' for rent — current inventory verified by Mark K Gorgulu.</p></div><div class="listing-grid">' + grid + '</div>';
+      html = html.replace(/<div class="section-head"><h2>Active Listings<\/h2>[\s\S]*?<div class="listing-grid">[\s\S]*?<\/div>\s*<div class="listings-foot">/, head + '<div class="listings-foot">');
+      html = html.replace(/\d+ homes? for sale · \d+ homes? for rent — current inventory verified by Mark K Gorgulu\./g, data.sale + ' home' + (data.sale===1?'':'s') + ' for sale · ' + data.rent + ' home' + (data.rent===1?'':'s') + ' for rent — current inventory verified by Mark K Gorgulu.');
+      return html;
+    }
+    Promise.all([
+      fetch('index.html.restored?v=listings1', { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('restore'); return r.text(); }),
+      fetch('listings-data.json?v=listings1', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+    ]).then(function (results) {
+      var html = rename(results[0]);
+      html = applyListings(html, results[1]);
+      document.open();
+      document.write(html);
+      document.close();
+    }).catch(function () {
+      document.body.innerHTML = '<div style="text-align:center;padding:40px"><h1 style="font-weight:300;letter-spacing:.06em;font-size:48px">MARK K GORGULU</h1><p>KG Realty · REB365</p><p><a style="color:#c9a96e" href="tel:+14693388141">(469) 338-8141</a></p></div>';
+    });
   })();
   </script>
 </head>
