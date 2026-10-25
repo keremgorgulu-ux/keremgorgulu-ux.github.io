@@ -11,42 +11,38 @@
   </style>
   <script>
   (function () {
-    var pairs = [
-      ['KEREM GORGULU', 'MARK K GORGULU'],
-      ['Kerem Gorgulu', 'Mark K Gorgulu'],
-      ['KG Realty – Kerem Gorgulu', 'KG Realty – Mark K Gorgulu'],
-      ['KG Realty - Kerem Gorgulu', 'KG Realty - Mark K Gorgulu'],
-      ['KG Realty | Kerem Gorgulu', 'KG Realty | Mark K Gorgulu'],
-      ['Meet Kerem', 'Meet Mark'],
-      ['Work With Kerem', 'Work With Mark'],
-      ['Worked with Kerem?', 'Worked with Mark?'],
-      ['Kerem helps buyers', 'Mark helps buyers'],
-      ['Kerem has a 5.0-star', 'Mark has a 5.0-star'],
-      ['Kerem will call', 'Mark will call'],
-      ['Yes. Kerem provides', 'Yes. Mark provides'],
-      ['contact Kerem', 'contact Mark'],
-      ['Contact Kerem', 'Contact Mark'],
-      ['Text Kerem', 'Text Mark'],
-      ['About Kerem', 'About Mark'],
-      ["Join Kerem's list", "Join Mark's list"],
-      ["Kerem's list", "Mark's list"],
-      ['Kerem of REB365', 'Mark of REB365']
-    ];
-    fetch('index.html.restored', { cache: 'no-store' })
+    function rename(html) {
+      html = html.replace(/KEREM GORGULU/g, 'MARK K GORGULU');
+      html = html.replace(/Kerem Gorgulu/g, 'Mark K Gorgulu');
+      html = html.replace(/Meet Kerem/g, 'Meet Mark');
+      html = html.replace(/Work With Kerem/g, 'Work With Mark');
+      html = html.replace(/Worked with Kerem\?/g, 'Worked with Mark?');
+      html = html.replace(/Kerem helps buyers/g, 'Mark helps buyers');
+      html = html.replace(/Kerem has a 5\.0-star/g, 'Mark has a 5.0-star');
+      html = html.replace(/Kerem will call/g, 'Mark will call');
+      html = html.replace(/Yes\. Kerem provides/g, 'Yes. Mark provides');
+      html = html.replace(/contact Kerem/g, 'contact Mark');
+      html = html.replace(/Contact Kerem/g, 'Contact Mark');
+      html = html.replace(/Text Kerem/g, 'Text Mark');
+      html = html.replace(/About Kerem/g, 'About Mark');
+      html = html.replace(/Join Kerem's list/g, "Join Mark's list");
+      html = html.replace(/Kerem's list/g, "Mark's list");
+      html = html.replace(/verified by Kerem/g, 'verified by Mark');
+      return html;
+    }
+    fetch('index.html.restored?v=mark3', { cache: 'no-store' })
       .then(function (r) {
         if (!r.ok) throw new Error('restore missing');
         return r.text();
       })
       .then(function (html) {
-        for (var i = 0; i < pairs.length; i++) {
-          html = html.split(pairs[i][0]).join(pairs[i][1]);
-        }
+        html = rename(html);
         document.open();
         document.write(html);
         document.close();
       })
       .catch(function () {
-        document.body.innerHTML = '<div style="text-align:center;padding:40px"><h1 style="font-weight:400;letter-spacing:.06em">MARK K GORGULU</h1><p>KG Realty · REB365</p><p><a style="color:#c9a96e" href="tel:+14693388141">(469) 338-8141</a></p></div>';
+        document.body.innerHTML = '<div style="text-align:center;padding:40px"><h1 style="font-weight:300;letter-spacing:.06em;font-size:48px">MARK K GORGULU</h1><p>KG Realty · REB365</p><p><a style="color:#c9a96e" href="tel:+14693388141">(469) 338-8141</a></p></div>';
       });
   })();
   </script>
