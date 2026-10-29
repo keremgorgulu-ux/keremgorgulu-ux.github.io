@@ -1,6 +1,6 @@
 {
   "sale": 2,
-  "rent": 8,
+  "rent": 10,
   "items": [
     {
       "tag": "For Sale",
@@ -31,48 +31,30 @@
     },
     {
       "tag": "For Rent",
+      "price": "$2,350 / mo",
+      "addr": "2708 N Avenue",
+      "city": "Plano, TX 75074",
+      "meta": ["3 beds", "1 full + 1 half", "1,273 sqft"],
+      "href": "https://www.renthop.com/listings/2708-n-avenue/na/77348208",
+      "img": "https://i.rent.com/t_3x2_fixed_webp_md/2ab640f2d8df0d5ea549d7478e4dcd57"
+    },
+    {
+      "tag": "For Rent",
       "price": "$1,950 / mo",
-      "addr": "10492 US Highway 69",
-      "city": "Whitewright, TX 75491",
-      "meta": ["3 beds", "2 full", "2,127 sqft"],
-      "href": "https://www.zillow.com/profile/keremgorgulu",
-      "img": "assets/listings/10492-us-highway-69.jpg?v=20261029"
+      "addr": "3401 E University Drive",
+      "city": "McKinney, TX 75069",
+      "meta": ["3 beds", "1 full + 1 half", "1,454 sqft"],
+      "href": "https://www.har.com/kerem-gorgulu/agent_ntreis-0717217",
+      "img": "https://i.rent.com/t_3x2_fixed_webp_md/a03867bbf3dc2b907aa5a51548cd1396"
     },
     {
       "tag": "For Rent",
-      "price": "$2,700 / mo",
-      "addr": "1613 Hightimber Ln",
+      "price": "$2,400 / mo",
+      "addr": "600 Claiborn Lane",
       "city": "Wylie, TX 75098",
-      "meta": ["4 beds", "3 full", "2,772 sqft"],
-      "href": "https://www.zillow.com/profile/keremgorgulu",
-      "img": "https://photos.zillowstatic.com/fp/8c534d47715c1c9bd4f6a61f805be8a5-cc_ft_960.jpg"
-    },
-    {
-      "tag": "For Rent",
-      "price": "$3,000 / mo",
-      "addr": "2507 Gentle Knoll Dr",
-      "city": "Melissa, TX 75454",
-      "meta": ["4 beds", "3 full + 1 half", "3,135 sqft"],
-      "href": "https://www.renthop.com/managers/kerem-gorgulu",
-      "img": "assets/listings/2507-gentle-knoll-dr.jpg?v=20261029"
-    },
-    {
-      "tag": "For Rent",
-      "price": "$3,300 / mo",
-      "addr": "2500 Sierra Dr",
-      "city": "McKinney, TX 75071",
-      "meta": ["5 beds", "2 full", "2,662 sqft"],
-      "href": "https://www.har.com/kerem-gorgulu/agent_ntreis-0717217",
-      "img": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      "tag": "For Rent",
-      "price": "$3,250 / mo",
-      "addr": "1017 Hoyt Dr",
-      "city": "Anna, TX 75071",
-      "meta": ["4 beds", "3 full", "3,030 sqft"],
-      "href": "https://www.har.com/kerem-gorgulu/agent_ntreis-0717217",
-      "img": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+      "meta": ["3 beds", "2 full + 1 half", "2,306 sqft"],
+      "href": "https://www.renthop.com/listings/600-claiborn-lane/na/77310896",
+      "img": "https://i.rent.com/t_3x2_fixed_webp_md/0422a993fc734f33c5627ffbacce826c"
     },
     {
       "tag": "For Rent",
@@ -86,11 +68,47 @@
     {
       "tag": "For Rent",
       "price": "$2,995 / mo",
+      "addr": "1017 Hoyt Dr",
+      "city": "Anna, TX 75071",
+      "meta": ["4 beds", "3 full", "3,030 sqft"],
+      "href": "https://www.har.com/kerem-gorgulu/agent_ntreis-0717217",
+      "img": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "tag": "For Rent",
+      "price": "$3,300 / mo",
+      "addr": "2500 Sierra Dr",
+      "city": "McKinney, TX 75071",
+      "meta": ["5 beds", "2 full + 1 half", "2,662 sqft"],
+      "href": "https://www.har.com/kerem-gorgulu/agent_ntreis-0717217",
+      "img": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "tag": "For Rent",
+      "price": "$2,995 / mo",
       "addr": "11379 Lockshire Dr",
       "city": "McKinney, TX 75035",
-      "meta": ["4 beds", "2 full", "2,795 sqft"],
+      "meta": ["4 beds", "2 full + 1 half", "2,795 sqft"],
       "href": "https://www.har.com/kerem-gorgulu/agent_ntreis-0717217",
       "img": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "tag": "For Rent",
+      "price": "$2,995 / mo",
+      "addr": "2507 Gentle Knoll Dr",
+      "city": "Melissa, TX 75454",
+      "meta": ["4 beds", "3 full + 1 half", "3,135 sqft"],
+      "href": "https://www.renthop.com/managers/kerem-gorgulu",
+      "img": "assets/listings/2507-gentle-knoll-dr.jpg?v=20261029"
+    },
+    {
+      "tag": "For Rent",
+      "price": "$1,950 / mo",
+      "addr": "10492 US Highway 69",
+      "city": "Whitewright, TX 75491",
+      "meta": ["3 beds", "2 full", "2,127 sqft"],
+      "href": "https://www.zillow.com/profile/keremgorgulu",
+      "img": "assets/listings/10492-us-highway-69.jpg?v=20261029"
     }
   ]
 }
