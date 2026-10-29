@@ -3,56 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mark K Gorgulu | North Texas Real Estate Agent | KG Realty</title>
-  <meta name="description" content="Mark K Gorgulu of REB365 — licensed North Texas real estate agent serving Frisco, Plano, Allen, Murphy, Dallas & beyond. 5.0★ on Zillow. Bilingual English & Turkish.">
+  <title>Kerem Gorgulu | North Texas Real Estate Agent | KG Realty</title>
+  <meta name="description" content="Kerem Gorgulu of REB365 — licensed North Texas real estate agent serving Frisco, Plano, Allen, Murphy, Dallas & beyond. 5.0★ on Zillow. Bilingual English & Turkish.">
+  <!-- Prefer a property photo (not the agent headshot) for social/search previews -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="KG Realty">
+  <meta property="og:title" content="Kerem Gorgulu | North Texas Real Estate Agent | KG Realty">
+  <meta property="og:description" content="Licensed North Texas real estate agent & property manager. Frisco, Plano, Allen, Murphy, Dallas. Bilingual English & Turkish.">
+  <meta property="og:url" content="https://kgrealty.it.com/">
+  <meta property="og:image" content="https://photos.zillowstatic.com/fp/7a347cbd962c5025f1a35ed458f7e453-cc_ft_960.jpg">
+  <meta property="og:image:width" content="960">
+  <meta property="og:image:height" content="720">
+  <meta property="og:image:alt" content="North Texas home listing — KG Realty">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kerem Gorgulu | KG Realty | North Texas Real Estate">
+  <meta name="twitter:description" content="Licensed agent serving Frisco, Plano, Allen, Murphy & Dallas. Bilingual English & Turkish.">
+  <meta name="twitter:image" content="https://photos.zillowstatic.com/fp/7a347cbd962c5025f1a35ed458f7e453-cc_ft_960.jpg">
+  <link rel="icon" href="https://photos.zillowstatic.com/fp/7a347cbd962c5025f1a35ed458f7e453-cc_ft_960.jpg">
   <style>
     body{margin:0;background:#0a0a0a;color:#e8e4df;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh}
     .load{opacity:.55;letter-spacing:.12em;text-transform:uppercase;font-size:12px}
   </style>
   <script>
   (function () {
-    function rename(html) {
-      html = html.replace(/KEREM GORGULU/g, 'MARK K GORGULU');
-      html = html.replace(/Kerem Gorgulu/g, 'Mark K Gorgulu');
-      html = html.replace(/Meet Kerem/g, 'Meet Mark');
-      html = html.replace(/Work With Kerem/g, 'Work With Mark');
-      html = html.replace(/Worked with Kerem\?/g, 'Worked with Mark?');
-      html = html.replace(/Kerem helps buyers/g, 'Mark helps buyers');
-      html = html.replace(/Kerem has a 5\.0-star/g, 'Mark has a 5.0-star');
-      html = html.replace(/Kerem will call/g, 'Mark will call');
-      html = html.replace(/Yes\. Kerem provides/g, 'Yes. Mark provides');
-      html = html.replace(/contact Kerem/g, 'contact Mark');
-      html = html.replace(/Contact Kerem/g, 'Contact Mark');
-      html = html.replace(/Text Kerem/g, 'Text Mark');
-      html = html.replace(/About Kerem/g, 'About Mark');
-      html = html.replace(/Join Kerem's list/g, "Join Mark's list");
-      html = html.replace(/Kerem's list/g, "Mark's list");
-      html = html.replace(/verified by Kerem/g, 'verified by Mark');
-      return html;
-    }
     function card(item) {
       var meta = (item.meta || []).map(function (m) { return '<span>' + m + '</span>'; }).join('');
-      return '<article class="listing-card"><div class="listing-photo"><img src="' + item.img + '" alt="' + item.addr + ', ' + item.city + '" loading="lazy"><span class="listing-tag">' + item.tag + '</span></div><div class="listing-body"><div class="listing-price">' + item.price + '</div><div class="listing-addr">' + item.addr + '<br>' + item.city + '</div><div class="listing-meta">' + meta + '</div><a href="' + item.href + '" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="padding:11px 16px;font-size:11px">View listing</a></div></article>';
+      var img = item.img || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80';
+      return '<article class="listing-card"><div class="listing-photo"><img src="' + img + '" alt="' + item.addr + ', ' + item.city + '" loading="lazy"><span class="listing-tag">' + item.tag + '</span></div><div class="listing-body"><div class="listing-price">' + item.price + '</div><div class="listing-addr">' + item.addr + '<br>' + item.city + '</div><div class="listing-meta">' + meta + '</div><a href="' + item.href + '" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="padding:11px 16px;font-size:11px">View listing</a></div></article>';
     }
     function applyListings(html, data) {
       if (!data || !data.items || !data.items.length) return html;
       var grid = data.items.map(card).join('');
-      var head = '<div class="section-head"><h2>Active Listings</h2><p>' + data.sale + ' home' + (data.sale === 1 ? '' : 's') + ' for sale · ' + data.rent + ' home' + (data.rent === 1 ? '' : 's') + ' for rent — current inventory verified by Mark K Gorgulu.</p></div><div class="listing-grid">' + grid + '</div>';
+      var head = '<div class="section-head"><h2>Active Listings</h2><p>' + data.sale + ' home' + (data.sale === 1 ? '' : 's') + ' for sale · ' + data.rent + ' home' + (data.rent === 1 ? '' : 's') + ' for rent — current inventory verified by Kerem Gorgulu.</p></div><div class="listing-grid">' + grid + '</div>';
       html = html.replace(/<div class="section-head"><h2>Active Listings<\/h2>[\s\S]*?<div class="listing-grid">[\s\S]*?<\/div>\s*<div class="listings-foot">/, head + '<div class="listings-foot">');
-      html = html.replace(/\d+ homes? for sale · \d+ homes? for rent — current inventory verified by Mark K Gorgulu\./g, data.sale + ' home' + (data.sale===1?'':'s') + ' for sale · ' + data.rent + ' home' + (data.rent===1?'':'s') + ' for rent — current inventory verified by Mark K Gorgulu.');
+      html = html.replace(/\d+ homes? for sale · \d+ homes? for rent — current inventory verified by Kerem Gorgulu\./g, data.sale + ' home' + (data.sale===1?'':'s') + ' for sale · ' + data.rent + ' home' + (data.rent===1?'':'s') + ' for rent — current inventory verified by Kerem Gorgulu.');
       return html;
     }
     Promise.all([
-      fetch('index.html.restored?v=listings2', { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('restore'); return r.text(); }),
-      fetch('listings-data.json?v=listings2', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+      fetch('index.html.restored?v=listings3', { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('restore'); return r.text(); }),
+      fetch('listings-data.json?v=listings3', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
     ]).then(function (results) {
-      var html = rename(results[0]);
+      var html = results[0];
+      // Ensure social preview meta is present even if restored file is cached
+      if (html.indexOf('og:image') === -1) {
+        html = html.replace('</head>',
+          '<meta property="og:image" content="https://photos.zillowstatic.com/fp/7a347cbd962c5025f1a35ed458f7e453-cc_ft_960.jpg">\n' +
+          '<meta name="twitter:card" content="summary_large_image">\n' +
+          '<meta name="twitter:image" content="https://photos.zillowstatic.com/fp/7a347cbd962c5025f1a35ed458f7e453-cc_ft_960.jpg">\n</head>');
+      }
+      // Prefer property photo over agent headshot in schema.org
+      html = html.replace(
+        '"image": "https://kgrealty.it.com/kerem-profile.jpg"',
+        '"image": "https://photos.zillowstatic.com/fp/7a347cbd962c5025f1a35ed458f7e453-cc_ft_960.jpg"'
+      );
       html = applyListings(html, results[1]);
       document.open();
       document.write(html);
       document.close();
     }).catch(function () {
-      document.body.innerHTML = '<div style="text-align:center;padding:40px"><h1 style="font-weight:300;letter-spacing:.06em;font-size:48px">MARK K GORGULU</h1><p>KG Realty · REB365</p><p><a style="color:#c9a96e" href="tel:+14693388141">(469) 338-8141</a></p></div>';
+      document.body.innerHTML = '<div style="text-align:center;padding:40px"><h1 style="font-weight:300;letter-spacing:.06em;font-size:48px">KEREM GORGULU</h1><p>KG Realty · REB365</p><p><a style="color:#c9a96e" href="tel:+14693388141">(469) 338-8141</a></p></div>';
     });
   })();
   </script>
