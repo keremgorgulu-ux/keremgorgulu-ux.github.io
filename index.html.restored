@@ -6,9 +6,9 @@
   "@context": "https://schema.org",
   "@type": "RealEstateAgent",
   "name": "KG Realty – Kerem Gorgulu",
-  "url": "https://kgrealty.it.com/",
+  "url": "https://mkgrealtytx.com/",
   "telephone": "+1-469-338-8141",
-  "image": "https://kgrealty.it.com/kerem-profile.jpg",
+  "image": "https://mkgrealtytx.com/kerem-profile.jpg",
   "description": "Licensed real estate agent and property manager in Plano, Frisco and North Texas. Buyer/seller representation and full-service single-family property management. Bilingual English and Turkish.",
   "address": {"@type": "PostalAddress", "addressLocality": "Frisco", "addressRegion": "TX", "addressCountry": "US"},
   "areaServed": ["Frisco, TX","Allen, TX","Plano, TX","McKinney, TX","Murphy, TX","Wylie, TX","Dallas, TX","North Texas","DFW"],
@@ -423,8 +423,8 @@
         <form id="contactForm" action="https://formsubmit.co/keremgorgulu@gmail.com" method="POST">
           <input type="hidden" name="_subject" value="New KG Realty Website Consultation Request">
           <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_next" value="https://kgrealty.it.com/?contact=success#contact">
-          <input type="hidden" name="_url" value="https://kgrealty.it.com/">
+          <input type="hidden" name="_next" value="https://mkgrealtytx.com/?contact=success#contact">
+          <input type="hidden" name="_url" value="https://mkgrealtytx.com/">
           <input type="hidden" name="_honey" value="" style="display:none">
           <div id="formFields">
             <div class="form-row"><div class="field"><label for="firstName">First Name</label><input id="firstName" name="first_name" type="text" required placeholder="Jordan"></div><div class="field"><label for="lastName">Last Name</label><input id="lastName" name="last_name" type="text" required placeholder="Rivera"></div></div>

@@ -5,7 +5,7 @@ This GitHub Pages frontend provides public search, owner listing submissions, te
 ## Activate the account workflow
 
 1. Create a Supabase project controlled by the brokerage/operator. In SQL Editor run `supabase/schema.sql`. Use a staging project first.
-2. In Authentication → URL Configuration set the Site URL to `https://kgrealty.it.com/rentals.html`. Add this URL and `https://keremgorgulu-ux.github.io/rentals.html` to redirect allowlist. Enable email OTP and configure reliable SMTP for production.
+2. In Authentication → URL Configuration set the Site URL to `https://mkgrealtytx.com/rentals.html`. Add this URL and `https://keremgorgulu-ux.github.io/rentals.html` to redirect allowlist. Enable email OTP and configure reliable SMTP for production.
 3. Copy the project's public URL and **publishable/anon key** into `rental-config.js`. Never paste the `service_role` key, payment secret or screening credentials in GitHub.
 4. Verify with two separate test users: submit an owner listing, publish it from Supabase Table Editor after review, apply as a tenant, update the status as the owner, exchange messages, and confirm unrelated users cannot read applications or messages.
 5. Publish only after brokerage approval of advertising, listing terms, fees, tenant selection criteria, data handling, and payment arrangements. Provide a privacy notice and retention/deletion procedure before inviting real applicants.
